@@ -17,12 +17,12 @@ for node_number in range(number_of_nodes):
     G.add_node(node_number)
     nodes_position[node_number] = [position_x, position_y]
 
-connections = []
+# connections = []
 
-for i in range(len(G.nodes)-1):
-    connections.append((i, i+1))
+# for i in range(len(G.nodes)-1):
+#     connections.append((i, i+1))
 
-G.add_edges_from(connections)
+# G.add_edges_from(connections)
 
 nx.draw(G, nodes_position, with_labels=True)
 plt.savefig('plot_task4.png')
