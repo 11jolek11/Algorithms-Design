@@ -30,8 +30,8 @@ class GraphCreator:
 
     @classmethod
     def generate_random_point(cls) -> list:
-        position_x = uniform.LCG.uniform_range(1, 30)
-        position_y = uniform.LCG.uniform_range(1, 30)
+        position_x = uniform.LCG.uniform_range(1, 10)
+        position_y = uniform.LCG.uniform_range(1, 10)
         # print(f'({position_x}, {position_y})')
         return [position_x, position_y]
     
