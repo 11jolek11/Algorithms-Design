@@ -1,13 +1,12 @@
 {
     "metadata":{
-        "states": ["q0", "q1", "q2", "q3", "q4", "q5", "q6"],
         "alphabet": ["a", "b", "c"],
-        "start_state": ["q0"],
+        "start_state": "q0",
         "end_state": ["q4", "q5"]
     },
     "config":{
         "q0": ["q2", "q2", "q2"],
-        "q1": ["q4", "q0", "#"],
+        "q1": ["q4", "q0"],
         "q2": ["q1", "q1", "q6"],
         "q3": ["q3", "q3", "q3"],
         "q4": ["q0", "q5", "q5"],
