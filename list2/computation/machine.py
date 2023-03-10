@@ -1,4 +1,4 @@
-import json
+from handlers import config_encoder, config_to_matrix
 
 
 
@@ -7,7 +7,7 @@ class FiniteStateMachine:
     Class representing Finite-state machine
     """
     def __init__(self, config: dict) -> None:
-        self.alphabet = range(len(config["metadata"]["alphabet"]))
+        self.alphabet = config["metadata"]["alphabet"]
         # end_state is a list
         self.end_state = config["metadata"]["end_state"]
         # self.register = config.metadata.start_state
@@ -23,7 +23,7 @@ class FiniteStateMachine:
         current_position = 0
         current_letter = self.sequence[current_position]
         total_letters = len(self.sequence)
-        while current_position <= total_letters:
+        while current_position <= total_letters and current_position < len(self.sequence):
             print(f"I'm in {current_state} and next signal is {current_position}")
             current_state = self.matrix[current_state][current_letter]
             print(current_state)
@@ -34,8 +34,7 @@ class FiniteStateMachine:
             print("Rejected!")
 
 if __name__ == "__main__":
-    pass
-    # mach = FiniteStateMachine(config=con)
+    mach = FiniteStateMachine(config=config_to_matrix(config_encoder('./config.json')))
     # mach.decode()
-    # mach.check_input([0, 0, 1 ])
-    # mach.run()
+    mach.check_input([0, 0, 1 ])
+    mach.run()
