@@ -1,4 +1,4 @@
-from handlers import config_encoder, config_to_matrix
+from handlers import config_encoder, config_to_matrix, input_encoder
 
 
 
@@ -6,6 +6,8 @@ class FiniteStateMachine:
     """
     Class representing Finite-state machine
     """
+    # TODO: spraw aby nie czytał z matrixa tylko z dicta
+    # TODO: optymalizuj 
     def __init__(self, config: dict) -> None:
         self.alphabet = config["metadata"]["alphabet"]
         # end_state is a list
@@ -16,7 +18,7 @@ class FiniteStateMachine:
         self.matrix = config["config"]
 
     def check_input(self, new_seqence) -> None:
-        self.sequence = new_seqence
+        self.sequence = input_encoder(new_seqence, self.alphabet)
 
     def run(self):
         current_state = self.register
@@ -36,5 +38,5 @@ class FiniteStateMachine:
 if __name__ == "__main__":
     mach = FiniteStateMachine(config=config_to_matrix(config_encoder('./config.json')))
     # mach.decode()
-    mach.check_input([0, 0, 1 ])
+    mach.check_input("aab")
     mach.run()

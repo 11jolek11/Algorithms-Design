@@ -7,6 +7,17 @@ import json
 def check_config_integrity():
     pass
 
+def input_encoder(input: str, alphabet: list):
+
+    alphabet_range = range(len(alphabet))
+    decoder = dict(zip(alphabet, alphabet_range))
+
+    encoded_input = []
+
+    for i in input:
+        encoded_input.append(decoder[i])
+
+    return encoded_input
 
 def config_encoder(file_path: str):
     """
