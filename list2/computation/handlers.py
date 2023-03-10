@@ -3,20 +3,45 @@ import pydantic
 import json
 
 
-# TODO: should return dict with config if config is correct, else raise error
 # TODO: use pydantic
-def check_config_integrity(file_path: str):
+def check_config_integrity():
+    pass
+
+
+def config_encoder(file_path: str):
     """
     Check if config file isn't corrupted or in formatted in wrong way
     """
     file_path = pathlib.Path(file_path)
 
     with file_path.open('r') as file:
-        temp = file
-        config = json.loads(file)
-        for code, orginal in enumerate(list(config['config'].keys())):
-            temp.replace(orginal, code)
-        return json.loads(temp)
+        content = file.read()
+        config = json.loads(content)
 
-    
-    # swap = list(enumerate(list(config['config'].keys())))
+        # TODO: explain what enumerate() does 
+        enum = enumerate(list(config['config'].keys()))
+        decoder = dict((j, i) for i,j in enum)
+
+        for key in config['config'].keys():
+            for i in range(len(config['config'][key])):
+                temp = config['config'][key][i]
+                config['config'][key][i] = decoder[temp]
+                del temp
+
+        config["metadata"]["start_state"] = decoder[config["metadata"]["start_state"]]
+
+        for state_no in range(len(config["metadata"]["end_state"])):
+            temp = config["metadata"]["end_state"][state_no]
+            config["metadata"]["end_state"][state_no] = decoder[temp]
+
+        return config
+
+
+def config_to_matrix(config: dict):
+    config["config"] = list(config["config"].values())
+    return config
+
+
+if __name__ == "__main__":
+    print("$$$$$$$$$")
+    print(config_to_matrix(config_encoder('./config.json')))

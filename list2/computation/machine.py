@@ -7,27 +7,16 @@ class FiniteStateMachine:
     Class representing Finite-state machine
     """
     def __init__(self, config: dict) -> None:
-        self.alphabet = config["metadata"]["alphabet"]
+        self.alphabet = range(len(config["metadata"]["alphabet"]))
         # end_state is a list
         self.end_state = config["metadata"]["end_state"]
         # self.register = config.metadata.start_state
-        self.register = 0
+        self.register = config["metadata"]["start_state"]
         self.sequence = []
-        self.matrix = []
+        self.matrix = config["config"]
 
     def check_input(self, new_seqence) -> None:
         self.sequence = new_seqence
-
-    def decode(self):
-        self.matrix = [
-            [2, 2, 2],
-            [4, 0],
-            [1, 1, 6],
-            [3, 3, 3],
-            [0, 5, 5],
-            [4, 4, 4],
-            [3, 3, 3],
-        ]
 
     def run(self):
         current_state = self.register
@@ -45,16 +34,8 @@ class FiniteStateMachine:
             print("Rejected!")
 
 if __name__ == "__main__":
-
-    con = {
-            "metadata":{
-                "alphabet": ["a", "b", "c"],
-                "start_state": 0,
-                "end_state": [0, 4, 5]
-            }
-        }
-    
-    mach = FiniteStateMachine(config=con)
-    mach.decode()
-    mach.check_input([0, 0, 1 ])
-    mach.run()
+    pass
+    # mach = FiniteStateMachine(config=con)
+    # mach.decode()
+    # mach.check_input([0, 0, 1 ])
+    # mach.run()
