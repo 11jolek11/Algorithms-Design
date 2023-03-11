@@ -27,7 +27,16 @@ class FiniteStateMachine:
         total_letters = len(self.sequence)
         while current_position <= total_letters and current_position < len(self.sequence):
             print(f"I'm in {current_state} and next signal is {current_position}")
-            current_state = self.matrix[current_state][current_letter]
+            if current_letter == "#":
+                print("Autom incomplete")
+                break
+            # print(f"I'm in {current_state} and next letter is {current_letter}")
+            # current_state = self.matrix[current_state][current_letter]
+            try:
+                current_state = self.matrix[current_state][current_letter]
+            except IndexError:
+                print("Autom incomplete")
+                break
             print(current_state)
             current_position += 1
         if current_state in self.end_state:
@@ -36,7 +45,7 @@ class FiniteStateMachine:
             print("Rejected!")
 
 if __name__ == "__main__":
-    mach = FiniteStateMachine(config=config_to_matrix(config_encoder('./config.json')))
+    mach = FiniteStateMachine(config=config_to_matrix(config_encoder('./config/config.json')))
     # mach.decode()
     mach.check_input("aab")
     mach.run()

@@ -29,9 +29,11 @@ def config_encoder(file_path: str):
         content = file.read()
         config = json.loads(content)
 
-        # TODO: explain what enumerate() does 
+        # TODO: explain what enumerate() is doing 
         enum = enumerate(list(config['config'].keys()))
         decoder = dict((j, i) for i,j in enum)
+        decoder['#'] = -9
+        print(decoder)
 
         for key in config['config'].keys():
             for i in range(len(config['config'][key])):
