@@ -17,11 +17,11 @@ def input_encoder(input: str, alphabet: list):
     for i in input:
         encoded_input.append(decoder[i])
 
-    return encoded_input
+    return encoded_input, input
 
 def config_encoder(file_path: str):
     """
-    Check if config file isn't corrupted or in formatted in wrong way
+    Decodes config to matrix format
     """
     file_path = pathlib.Path(file_path)
 
@@ -33,7 +33,7 @@ def config_encoder(file_path: str):
         enum = enumerate(list(config['config'].keys()))
         decoder = dict((j, i) for i,j in enum)
         decoder['#'] = -9
-        print(decoder)
+        # print(decoder)
 
         for key in config['config'].keys():
             for i in range(len(config['config'][key])):

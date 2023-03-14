@@ -2,7 +2,7 @@
     "metadata":{
         "alphabet": ["a", "b", "c"],
         "start_state": "q0",
-        "end_state": ["q4", "q5"]
+        "end_state": ["q4", "q5", "q0"]
     },
     "config":{
         "q0": ["q2", "q2", "q2"],
