@@ -1,4 +1,5 @@
-from handlers import config_encoder, config_to_matrix, input_encoder
+import json
+import pathlib
 
 
 
@@ -7,41 +8,70 @@ class TuringMachine:
     Class representing Turing machine
     """
     def __init__(self, config: dict) -> None:
+        # TODO: Remember that machine must be complete!
+        # TODO: Add custom error for incomplete machine
+        # TODO: how to handle end/accept states? 
         self.alphabet = config["metadata"]["alphabet"]
         self.end_state = config["metadata"]["end_state"]
-        self.tapehead = config["metadata"]["start_state"]
-        self.tape = []
-        self.input = ''
-        self.sequence = []
+        self.current_state = config["metadata"]["start_state"]
+        # Symbol None represents empty value
+        # self.tape = [None for _ in range(100)]
+        self.tape = [None for _ in range(15)]
+        self.tapehead = 0
+        self._input = []
         self.matrix = config["config"]
 
-    def check_input(self, new_seqence) -> None:
-        # TODO: Remove or rewrite input_encoder
-        self.sequence, self.input = input_encoder(new_seqence, self.alphabet)
+    @property
+    def input(self) -> list:
+        #input getter
+        return self._input
+
+    @input.setter
+    def input(self, new_input: list[str]):
+        self._input = new_input
+        for i in range(len(new_input)):
+            self.tape[i] = new_input[i] 
 
     def run(self):
-        current_state = self.tapehead
-        current_position = 0
-        current_letter = self.sequence[current_position]
-        total_letters = len(self.sequence)
-        while current_position <= total_letters and current_position < len(self.sequence):
-            current_letter = self.sequence[current_position]
-            print(f"I'm in {current_state} and next signal is {self.input[current_position]}")
+        current_letter = self.input[self.tapehead]
+        total_letters = len(self.input)
+        # FIXME: popraw warunek stopu!!!
+        while self.tapehead <= total_letters and self.tapehead < len(self.input):
+            current_letter = self.tape[self.tapehead]
+            print(f"I'm in {self.current_state} and next signal is {self.input[self.tapehead]}, head is over position: {self.tapehead}")
+            print(self.tape)
             if current_letter == '#':
                 print("Autom incomplete1")
-                break
+                break 
             try:
-                current_state = self.matrix[current_state][current_letter]
+                if self.tape[self.tapehead] == current_letter:
+                    if current_letter not in self.matrix[self.current_state].keys():
+                        break
+                    self.tape[self.tapehead] =  self.matrix[self.current_state][current_letter]["write"]
+                if self.matrix[self.current_state][current_letter]["move"] == "R":
+                    self.tapehead += 1
+                elif self.matrix[self.current_state][current_letter]["move"] != "R" and self.tapehead == 0:
+                    self.tapehead = 0
+                else:
+                    self.tapehead -= 1
+                self.current_state = self.matrix[self.current_state][current_letter]["next_state"]
             except IndexError:
                 pass
-            current_position += 1
-        if current_state in self.end_state:
-            print(f'I \'m in {current_state}. Accepted!')
+        # FIXME: Rejects good input 'aaaaaa'
+        if self.current_state in self.end_state:
+            print(f'I \'m in {self.current_state}. Accepted!')
+            return True
         else:
-            print(f'I \'m in {current_state}. Rejected!')
+            print(f'I \'m in {self.current_state}. Rejected!')
+            return False
+
 
 if __name__ == "__main__":
-    # TODO: Remove or rewrite config_to_matrix and config_encoder
-    mach = TuringMachine(config=config_to_matrix(config_encoder('./config/config.json')))
-    mach.check_input("aab")
-    mach.run()
+    print(pathlib.Path.cwd())
+    # with open('config/config.json') as file:
+    with open('computation/config/config.json') as file:
+        content = file.read()
+        c = json.loads(content)
+    test = TuringMachine(c)
+    test.input = ['a', 'a', 'a', 'a', 'a', 'a']
+    test.run()

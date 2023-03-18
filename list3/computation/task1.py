@@ -1,13 +1,13 @@
-from machine import FiniteStateMachine
-from handlers import config_encoder, config_to_matrix
+from machine import TuringMachine
+import json
 
 
 
 if __name__ == "__main__":
-    mach = FiniteStateMachine(config=config_to_matrix(config_encoder('./config/task1.json')))
-    # mach.decode()
-    mach.check_input("00")
-    # mach.check_input("01")
-    # mach.check_input("000")
+    with open('./computation/config/config.json') as file:
+        content = file.read()
+        c = json.loads(content)
 
-    mach.run()
+    test = TuringMachine(c)
+    test.input = ['a', 'a']
+    test.run()
