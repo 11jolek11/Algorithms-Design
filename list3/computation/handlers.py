@@ -1,11 +1,24 @@
 import pathlib
-import pydantic
+# import pydantic
 import json
 
 
 # TODO: use pydantic
 def check_config_integrity():
     pass
+
+def XNOR(a: bool,b: bool) -> bool:
+    # Implements XNOR gate
+    if(a == b):
+        return True
+    else:
+        return False
+    
+def NAND (a: bool, b: bool) -> bool:
+    if a == True and b == True:
+        return False
+    else:
+        return True
 
 def input_encoder(input: str, alphabet: list):
 
