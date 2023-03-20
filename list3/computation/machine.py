@@ -34,7 +34,7 @@ class TuringMachine:
     def run(self):
         current_letter = self.input[self.tapehead]
         point = 0
-        while point <= 400 and self.current_state not in self.end_state:
+        while point <= 1200 and self.current_state not in self.end_state:
             point += 1
             current_letter = self.tape[self.tapehead]
             print(f"I'm in {self.current_state} and next signal is {self.tape[self.tapehead]}, head is over position: {self.tapehead}")
@@ -57,9 +57,11 @@ class TuringMachine:
                 return False
         if self.current_state == "qa":
             print(f'I \'m in {self.current_state}. Accepted!')
+            print(f'Total iterations: {point}')
             return True
         else:
             print(f'I \'m in {self.current_state}. Rejected!')
+            print(f'Total iterations: {point}')
             return False
         # if self.current_state in self.end_state:
         #     print(f'I \'m in {self.current_state}. Accepted!')
