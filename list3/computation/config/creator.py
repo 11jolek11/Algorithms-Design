@@ -198,6 +198,7 @@ def task4():
                         "7": RelationContent(write="7", next_state="q8", move="R"),
                         "8": RelationContent(write="8", next_state="q8", move="R"),
                         "9": RelationContent(write="9", next_state="q8", move="R"),
+                        "]": RelationContent(write="]", next_state="qa", move="R"),
                        },
                     "q8": {
                         "0": RelationContent(write="0", next_state="q8", move="R"),
