@@ -63,12 +63,6 @@ class TuringMachine:
             print(f'I \'m in {self.current_state}. Rejected!')
             print(f'Total iterations: {point}')
             return False
-        # if self.current_state in self.end_state:
-        #     print(f'I \'m in {self.current_state}. Accepted!')
-        #     return True
-        # else:
-        #     print(f'I \'m in {self.current_state}. Rejected!')
-        #     return False
 
 
 if __name__ == "__main__":

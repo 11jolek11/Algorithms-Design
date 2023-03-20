@@ -116,7 +116,6 @@ def task4():
                 {
                     "q0": {
                         "[": RelationContent(write="[", next_state="q1", move="R"),
-                        #"": RelationContent(write="", next_state="", move=""),
                     },
                     "q1": {
                         "#": RelationContent(write="#", next_state="q7", move="R"),
@@ -185,7 +184,6 @@ def task4():
                     "q6": {
                         "#": RelationContent(write="#", next_state="q7", move="R"),
                         ",": RelationContent(write=",", next_state="q1", move="R"),
-                        # "": RelationContent(write="", next_state="", move="# ")
                      },
                     "q7": {
                         "0": RelationContent(write="0", next_state="q8", move="R"),
@@ -234,69 +232,6 @@ def task4():
     with open('task4.json', 'w') as file:
         file.write(entire.json())
 
-# def task3():
-#     entire = Combine(
-#             metadata=Metadata(start_state="q0", end_state=["qr", "qa"]),
-#             config=Config(config=
-#                 {
-#                     "q0": {
-#                         "x": RelationContent(write="x", next_state="q1", move="R"),
-#                         "a": RelationContent(write="!a", next_state="q2", move="R"),
-#                     },
-#                     "q1": {
-#                         "x": RelationContent(write="x", next_state="qr", move="L"),
-#                         "a": RelationContent(write="a", next_state="qr", move="L"),
-#                         "_": RelationContent(write="_", next_state="qa", move="L"),
-#                     },
-#                     "q2": {
-#                         "x": RelationContent(write="x", next_state="q3", move="R"),
-#                         "a": RelationContent(write="a", next_state="q2", move="R"),                       
-#                         },
-#                     "q3": {
-#                         "a": RelationContent(write="a", next_state="q3", move="R"),
-#                         "!a": RelationContent(write="!a", next_state="q4", move="L"),
-#                         "_": RelationContent(write="_", next_state="q4", move="L"),
-#                     },
-#                     "q4": {
-#                         "a": RelationContent(write="!a", next_state="q5", move="L"),
-#                         "!a": RelationContent(write="!a", next_state="q4", move="L"),
-#                     },
-#                     "q5": {
-#                         "a": RelationContent(write="a", next_state="q5", move="L"),
-#                         "x": RelationContent(write="x", next_state="q6", move="L"),
-#                     },
-#                     "q6": {
-#                         "a": RelationContent(write="a", next_state="q7", move="L"),
-#                         "!a": RelationContent(write="!a", next_state="q8", move="R"),
-#                         # "": RelationContent(write="", next_state="", move="# ")
-#                      },
-#                     "q7": {
-#                         "a": RelationContent(write="a", next_state="q7", move="L"),
-#                         "_": RelationContent(write="_", next_state="q2", move="R"),
-#                         "!a": RelationContent(write="!a", next_state="q9", move="R"), 
-#                        },
-#                     "q8": {
-#                         "!a": RelationContent(write="!a", next_state="qa", move="L"),
-#                         # "!a": RelationContent(write="!a", next_state="q8", move="R"),
-#                         # "_": RelqationContent(write="_", next_state="qa", move="R"),
-#                         "a": RelationContent(write="!a", next_state="q8", move="R"),
-#                         "x": RelationContent(write="x", next_state="q8", move="R"),
-#                        },
-#                     "q9": {
-#                         "a": RelationContent(write="!a", next_state="q2", move="R"),
-#                         "!a": RelationContent(write="!a", next_state="qr", move="R"),
-#                         "_": RelationContent(write="_", next_state="qr", move="R"),
-#                         "x": RelationContent(write="x", next_state="qr", move="R"),
-#                         # "4": RelationContent(write="4", next_state="q7", move="R"),
-#                     },
-#                 }
-#             ),
-#         )
-    
-#     with open('task3.json', 'w') as file:
-#         file.write(entire.json())
-
-
 def task3():
     entire = Combine(
             metadata=Metadata(start_state="q0", end_state=["qr", "qa"]),
@@ -321,39 +256,14 @@ def task3():
                         "!a": RelationContent(write="!a", next_state="q4", move="R"),
                         "_": RelationContent(write="_", next_state="qr", move="R"),
                     },
-                    # #--"q4": {
-                    # #--    "a": RelationContent(write="!a", next_state="q5", move="L"),
-                    # #--    "!a": RelationContent(write="!a", next_state="q4", move="L"),
-                    # #--},
-                    # #-- "q5": {
-                    # #--    "a": RelationContent(write="a", next_state="q5", move="L"),
-                    # #--   "x": RelationContent(write="x", next_state="q6", move="L"),
-                    # #--},
                     "q6": {
                         "x": RelationContent(write="x", next_state="q7", move="L"),
                         "!a": RelationContent(write="!a", next_state="q6", move="L"),
-                        # "": RelationContent(write="", next_state="", move="# ")
                      },
                     "q7": {
                         "a": RelationContent(write="a", next_state="q7", move="L"),
-                        # "_": RelationContent(write="_", next_state="q2", move="R"),
                         "!a": RelationContent(write="!a", next_state="q0", move="R"), 
                        },
-                    ## "q8": {
-                    ##     "!a": RelationContent(write="!a", next_state="qa", move="L"),
-                    # #    # "!a": RelationContent(write="!a", next_state="q8", move="R"),
-                    #  #   # "_": RelqationContent(write="_", next_state="qa", move="R"),
-                    #   #  "a": RelationContent(write="!a", next_state="q8", move="R"),
-                    #    # "x": RelationContent(write="x", next_state="q8", move="R"),
-                    ##    },
-                    ##
-                    ## "q9": {
-                    # #    "a": RelationContent(write="!a", next_state="q2", move="R"),
-                    #  #   "!a": RelationContent(write="!a", next_state="qr", move="R"),
-                    #   #  "_": RelationContent(write="_", next_state="qr", move="R"),
-                    #    # "x": RelationContent(write="x", next_state="qr", move="R"),
-                    #     # "4": RelationContent(write="4", next_state="q7", move="R"),
-                    ## },
                 }
             ),
         )
