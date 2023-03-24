@@ -30,14 +30,26 @@ def subset_sum(set_A, target=0):
             print("Complete!")
             break
         temp = []
-        # FIXME: How to display?
         for i in range(len(set_A)):
             temp.append(set_A[i]*int(decision[i]))
-            if sum(temp) == target:
-                discovered.append(tuple(temp))
-    return set(discovered)
+            # if sum(temp) == target and int(decision[i]) >= 1:
+        if sum(temp) == target:
+            discovered.append(tuple(decision))
+    
+    discovered = list(set(discovered))
+    print(discovered)
+
+    to_return = []
+
+    for item in discovered:
+        temp = []
+        for i in range(len(item)):
+            if item[i] == '1':
+                temp.append(set_A[i])
+        to_return.append(temp)
+    return tuple(to_return)
+    # return set(discovered)
 
 
 if __name__ == "__main__":
-    print(subset_sum([2, 2, 0]))
-
+    print(subset_sum([4, -4, 1]))
