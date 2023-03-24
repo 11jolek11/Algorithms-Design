@@ -1,0 +1,18 @@
+from task4 import profile
+from task1 import *
+from task2 import matrix_multi
+from task3 import subset_sum
+
+import matplotlib.pyplot as plt
+
+
+
+def visualize(func:function, a: int, b: int, step=1, data_form='list'):
+    results = []
+    axis_tickets = []
+    for n in range(a, b, step):
+        axis_tickets.append(n)
+        results.append(profile(func, n, data_form=data_form))
+    plt.plot(axis_tickets, results)
+    plt.savefig('task5.png')
+    # plt.show()

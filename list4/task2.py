@@ -5,7 +5,7 @@ def matrix_multi(matrix_a: list[list], matrix_b: list[list]) -> list[list[float]
     for y in range(len(matrix_a)):
         for x in range(len(matrix_a)):
             for k in range(len(matrix_a[0])):
-                matrix_result[y][x] += float(matrix_a[y][k]*matrix_b[k][x])
+                matrix_result[y][x] += float(matrix_a[y][k] * matrix_b[k][x])
     return matrix_result
 
 
