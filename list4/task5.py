@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 
-def visualize(func:function, a: int, b: int, step=1, data_form='list'):
+def visualize(func, a: int, b: int, step=1, data_form='list'):
     results = []
     axis_tickets = []
     for n in range(a, b, step):
@@ -15,4 +15,7 @@ def visualize(func:function, a: int, b: int, step=1, data_form='list'):
         results.append(profile(func, n, data_form=data_form))
     plt.plot(axis_tickets, results)
     plt.savefig('task5.png')
-    # plt.show()
+
+
+if __name__ == "__main__":
+    visualize(biggest_element, 1, 10)

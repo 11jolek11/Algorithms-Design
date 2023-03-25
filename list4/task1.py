@@ -1,3 +1,7 @@
+import time
+
+
+
 def biggest_element(table: list[float | int]) -> float:
     register = table[0]
     for item in table:
@@ -7,18 +11,21 @@ def biggest_element(table: list[float | int]) -> float:
 
 
 def biggest_second_element(table: list[float | int]) -> float:
-    registers = [0, table[0]]
-    for i in range(len(table)):
-        if table[i] > registers[1]:
-            registers[1] = table[i]
-        if table[i] == registers[1]:
-            registers[0] == table[i]
-    return registers[0]
+    pass    
 
 
 def custom_mean(table: list[float | int]) -> float:
-    i = 0
+    p = 0
     temp = 0
-    while i <= len(table):
+    # while i <= len(table):
+    for i in range(len(table)):
+        p += 1
         temp += table[i]
-    return temp / i
+    return temp / p
+
+
+if __name__ == "__main__":
+    test = [1, 4, 4, 5, 1]
+    print(biggest_element(test))
+    print(biggest_second_element(test))
+    print(custom_mean(test))
