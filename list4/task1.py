@@ -2,6 +2,15 @@ import time
 
 
 
+def bubbleSort(alist):
+    for passnum in range(len(alist)-1,0,-1):
+        for i in range(passnum):
+            if alist[i]<alist[i+1]:
+                temp = alist[i]
+                alist[i] = alist[i+1]
+                alist[i+1] = temp
+    return(alist)
+
 def biggest_element(table: list[float | int]) -> float:
     register = table[0]
     for item in table:
@@ -12,7 +21,8 @@ def biggest_element(table: list[float | int]) -> float:
 
 def biggest_second_element(table: list[float | int]) -> float:
     temp = -100
-    table = sorted(table, reverse=True)
+    # table = sorted(table, reverse=True)
+    table = bubbleSort(table)
     for i in range(len(table)):
         if table[i] >= temp:
             if table[i] == table[i+1]:
@@ -35,3 +45,12 @@ if __name__ == "__main__":
     # print(biggest_element(test))
     print(biggest_second_element(test))
     # print(custom_mean(test))
+
+# def bubbleSort(alist):
+#     for passnum in range(len(alist)-1,0,-1):
+#         for i in range(passnum):
+#             if alist[i]<alist[i+1]:
+#                 temp = alist[i]
+#                 alist[i] = alist[i+1]
+#                 alist[i+1] = temp
+#     return(alist)
