@@ -1,24 +1,25 @@
-def get_bit(line, bit_pos, state, powers):
-    k = powers[bit_pos - 1]
+def get_bit(line, pos_for_bit, state, powe):
+    k = powe[pos_for_bit - 1]
     if line % (k // 2):
-        return str(state[bit_pos - 1])
+        return str(state[pos_for_bit - 1])
     else:
-        bit = 1 - state[bit_pos - 1]
-        state[bit_pos - 1] = bit
+        bit = 1 - state[pos_for_bit - 1]
+        state[pos_for_bit - 1] = bit
         if line % k == 0:
-            state[bit_pos - 1] = 1 - bit
+            state[pos_for_bit - 1] = 1 - bit
             bit = 1 - bit
         return str(bit)
 
 
 def gray_codes(n):
+    # O(2^n)
     lines = 1 << n
     state = [0] * n
-    powers = [1 << i for i in range(1, n + 1)]
+    powe = [1 << i for i in range(1, n + 1)]
     for line in range(lines):
         gray_code = ""
-        for bit_pos in range(n, 0, -1):
-            gray_code += get_bit(line, bit_pos, state, powers)
+        for pos_for_bit in range(n, 0, -1):
+            gray_code += get_bit(line, pos_for_bit, state, powe)
         yield gray_code
 
 
@@ -55,3 +56,9 @@ def subset_sum(set_A: list, target=0):
 
 if __name__ == "__main__":
     print(subset_sum([4, -4, 1]))
+
+# def gray_codes(n):
+#   if n == 1:
+#     return ['0', '1']
+#   r = gc(n - 1)
+#   return ['0' + e for e in r] + ['1' + e for e in reversed(r)]

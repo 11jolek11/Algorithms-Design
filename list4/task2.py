@@ -10,6 +10,7 @@ def matrix_multi(matrix_a: list[list], matrix_b: list[list]) -> list[list[float]
 
 
 if __name__ == "__main__":
+    # Time complexity O(n^3)
     a = [[1, 1], [1, 1]]
     b = a
 

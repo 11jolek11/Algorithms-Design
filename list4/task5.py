@@ -13,9 +13,11 @@ def visualize(func, a: int, b: int, step=1, data_form='list'):
     for n in range(a, b, step):
         axis_tickets.append(n)
         results.append(profile(func, n, data_form=data_form))
-    plt.plot(axis_tickets, results)
-    plt.savefig('task5.png')
+    # plt.plot(axis_tickets, results)
+    plt.scatter(axis_tickets, results)
+    plt.savefig('task5_sctter.png')
 
 
 if __name__ == "__main__":
-    visualize(biggest_element, 1, 10)
+    # visualize(biggest_element, 1, 10000)
+    visualize(subset_sum, 1, 20)
