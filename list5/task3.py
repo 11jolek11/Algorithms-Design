@@ -13,30 +13,30 @@ def mergesort(table):
         mergesort(L)
         mergesort(R)
 
-        i = 0
-        j = 0
-        k = 0
+        a = 0
+        b = 0
+        helper = 0
 
-        # Sortowanie wewnatrz
-        while i < len(L) and j < len(R):
-            if L[i] < R[j]:
-                table[k] = L[i]
-                i += 1
+        # Sortowanie pomiedzy rozlamami
+        while a < len(L) and b < len(R):
+            if L[a] < R[b]:
+                table[helper] = L[a]
+                a += 1
             else:
-                table[k] = R[j]
-                j += 1
-            k += 1
+                table[helper] = R[b]
+                b += 1
+            helper += 1
 
-        # po przejsciu tabel
-        while i < len(L):
-            table[k] = L[i]
-            i += 1
-            k += 1
+        # po przejsciu tabel, merge
+        while a < len(L):
+            table[helper] = L[a]
+            a += 1
+            helper += 1
 
-        while j < len(R):
-            table[k] = R[j]
-            j += 1
-            k += 1
+        while b < len(R):
+            table[helper] = R[b]
+            b += 1
+            helper += 1
 
 
 if __name__ == '__main__':
