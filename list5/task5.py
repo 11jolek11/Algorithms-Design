@@ -3,7 +3,7 @@ import random
 import matplotlib.pyplot as plt
 
 from task2 import maximum, average, fsbig
-from task3 import mergeSort
+from task3 import mergesort
 
 def profile(target, data_size: int, data_form: str):
     if data_form == "matrix":
@@ -27,7 +27,6 @@ def profile(target, data_size: int, data_form: str):
         return captured
 
 
-
 def visualize(func, a: int, b: int, step=1, data_form='list'):
     results = []
     axis_tickets = []
@@ -40,5 +39,4 @@ def visualize(func, a: int, b: int, step=1, data_form='list'):
 
 
 if __name__ == "__main__":
-   visualize(mergeSort, 1, 20)
-
+   visualize(mergesort, 1, 20)
