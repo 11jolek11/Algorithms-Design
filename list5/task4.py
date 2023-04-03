@@ -48,19 +48,27 @@
 
 
 class Graph:
-    def __init__(self, graph):
+    def __init__(self, graph: dict[str, list[str]]):
         self.visited = []
         self.queue = []
+        self.travel = []
         self.graph = graph
 
     def bfs(self, node, target):
-    # TODO: DOdaj obsluge pojedynczych nodow
+    # TODO: Dodaj obsluge pojedynczych nodow
         print(node)
+        if len(self.graph[node]) == 0 or len(self.graph[target]) == 0:
+            print("Single node")
+            return 0
+        self.travel.append(node)
         if node not in self.visited:
             self.visited.append(node)
         for neighbour in self.graph[node]:
             if neighbour == target:
                 print(neighbour)
+                self.travel.append(neighbour)
+                print("hallo")
+                # return self.travel
                 return 0
             if neighbour not in self.visited:
                 self.queue.append(neighbour)
@@ -81,13 +89,26 @@ class Graph:
 #     'G': []
 # }
 
+# graph = {
+#             'A': ['B', 'D'],
+#             'B': ['A', 'C'],
+#             'C': ['B', 'D'],
+#             'D': ['A', 'C']
+#         }
+
+
+# graph = {
+#             'A': []
+#         }
+
+
 graph = {
             'A': ['B', 'D'],
-            'B': ['A', 'C'],
-            'C': ['B', 'D'],
-            'D': ['A', 'C']
+            'B': ['A'],
+            'D': ['A'],
+            'G': []
         }
 
 g = Graph(graph)
-g.bfs('B', 'D')
-
+print(g.bfs('A', 'G'))
+print(g.travel)
