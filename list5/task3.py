@@ -17,7 +17,7 @@ def mergesort(table):
         b = 0
         helper = 0
 
-        # Sortowanie pomiedzy rozlamami
+        # Sortowanie pomiedzy rozlamami + merge
         while a < len(L) and b < len(R):
             if L[a] < R[b]:
                 table[helper] = L[a]
@@ -40,7 +40,9 @@ def mergesort(table):
 
 
 if __name__ == '__main__':
-    table = [6, 5, 12, 10, 9, 1]
+    # table = [6, 5, 12, 10, 9, 1]
+    from random import randint
+    table = [randint(1, 9) for _ in range(1000000)]
 
     mergesort(table)
-    print(table)
+    # print(table)
