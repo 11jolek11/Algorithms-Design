@@ -21,11 +21,11 @@ class Graph:
 
         for neighbour in self.graph[node]:
             # Waunek stopu
-            # if neighbour == target:
+            if neighbour == target:
             #     # self.travel.append(neighbour)
             #     # print("$$$$$$$$$$$")
             #     # print(self.travel)
-            #     return 0
+                return 0
 
             # print(neighbour not in self.travel)
             # if neighbour not in self.visited:
