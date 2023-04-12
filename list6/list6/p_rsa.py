@@ -1,6 +1,7 @@
 import random
 
 def generate_keypair(p, q):
+    # openssl prime -generate -bits 8
     n = p * q
     phi = (p - 1) * (q - 1)
     e = random.randrange(1, phi)
@@ -10,13 +11,13 @@ def generate_keypair(p, q):
     d = pow(e, -1, phi)
     return ((e, n), (d, n))
 
-def encrypt(pk, plaintext):
-    key, n = pk
+def encrypt(public, plaintext):
+    key, n = public
     cipher = [pow(ord(char), key, n) for char in plaintext]
     return cipher
 
-def decrypt(pk, ciphertext):
-    key, n = pk
+def decrypt(private, ciphertext):
+    key, n = private
     plain = [chr(pow(char, key, n)) for char in ciphertext]
     return ''.join(plain)
 

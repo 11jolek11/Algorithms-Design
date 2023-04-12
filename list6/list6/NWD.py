@@ -5,15 +5,26 @@ def ENWD(a, b):
 
 
 def find_factors(num):
-    divs = []
-    for value in range(1, num + 1):
-        if num % value == 0:
-            divs.append(value)
-    return divs
+    factors = []
+    k = 2
+    while num != 1:
+        while num % k == 0:
+            num //= k
+            factors.append(k)
+        k += 1
+    
+    return factors
 
 
 def RNWD(a, b):
+    nwd = 1
+
     divx = find_factors(a)
     divy = find_factors(b)
     pos_sol = set(divx).intersection(divy)
-    return max(pos_sol)
+    for element in pos_sol:
+        nwd *= element
+    return nwd
+
+if __name__ == '__main__':
+    print(RNWD(10, 6))

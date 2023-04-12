@@ -114,6 +114,17 @@ unicode = ["unicodedata2 (>=15.0.0)"]
 woff = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "zopfli (>=0.1.4)"]
 
 [[package]]
+name = "gensafeprime"
+version = "1.6"
+description = "Generate safe primes using OpenSSL (a prime p = 2*q+1, and q is prime too)"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "gensafeprime-1.6.tar.gz", hash = "sha256:8613cdf1a20d887d0eb4c0d3ba1ddadd4f5b8a477db280e8c4082b455ba92b45"},
+]
+
+[[package]]
 name = "kiwisolver"
 version = "1.4.4"
 description = "A fast implementation of the Cassowary constraint solver"
@@ -428,4 +439,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "5a3b6010f0c00777a9f950d5ecd377d31eeda1eac2cea9b6cbd814b3267547af"
+content-hash = "c9494e5c4960d50511a018f81cce9f0df2f86eef1f966a1033a22110eb941473"

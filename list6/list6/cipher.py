@@ -6,41 +6,55 @@ from NWD import ENWD
 
 
 class RSA():
-    def __init__(self, bits: int=256):
-        self.p = self.get_prime()
-        self.q = self.get_prime()
-        self.n = (self.p -1 )*(self.q - 1)
+    def __init__(self):
+        # openssl prime -generate -bits 2048 -hex
+        self.p = 61
+        self.q = 53
+        self.n = (self.p - 1 )*(self.q - 1)
         self.d = None
-        self.level = bits
+
+    def mod_inverse(self, a, m):
+        for x in range(1, m):
+            if (a * x) % m == 1:
+                return x
+        return -1
 
     def key_gen(self):
         e = self.get_e()
-        d = (1%self.n)/e
-        print(f'Public key: {e} {self.n}')
-        print(f'Private key: {d} {self.n}')
-        print('Kepp it secret!')
+        d = self.mod_inverse(e, self.n)
+        print(e)
+        print(f'Public key: {e}#{self.n}')
+        print(f'Private key: {d}#{self.n}')
+        print('Keep it secret!')
+        return e, d, self.n
 
     def encrypt(self, message:int, public: int, n:int):
-        return fermat.fast_modulo(message, public, n)
+        return pow(message, public, n)
 
     def dencrypt(self, cryptex:int, private: int, n:int):
-        return fermat.fast_modulo(cryptex, private, n)
+        return pow(cryptex, private, n)
+    
+    def encrypt_txt(self, message:str, public: str, n:str):
+            n = int(n)
+            public = int(public)
+            encrypted = ''
+            for letter in message:
+                encrypted += chr(pow(ord(letter), public, n))
+            return encrypted
+    
+    def decrypt_txt(self, cryptex:str, private: str, n:str):
+            n = int(n)
+            public = int(private)
+            dencrypted = ''
+            for letter in cryptex:
+                dencrypted += chr(pow(ord(letter), private, n))
+            return dencrypted    
 
-    def get_prime(self):
-        number = randbits(self.level)
-        while True:
-            # if fermat.test(number, log2(number)//2):
-            if fermat.test(number, 100):
-                return number
-            number += 2
-        
-    def get_e(self, a=1, b=100):
+    def get_e(self, a=17, b=100):
         for i in range(a, b+1):
-            # if ENWD(i, (self.p -1 )*(self.q - 1)) == 1 and i % 2 != 0:
-            if ENWD(i, self.n) == 1:
+            if ENWD(i, self.n) == 1 and i % 2 != 0:
+            # if ENWD(i, self.n) == 1:
                 return i
-
-
     
     @classmethod
     def euklides(cls, a, b):
@@ -58,3 +72,10 @@ class RSA():
         d, x, y = cls.extended_euklides(b, a % b)
         d, x, y = d, y, x - floor(a/b)*y
         return d, x, y
+
+
+if __name__ == '__main__':
+    p = RSA()
+    public, private, n = p.key_gen()
+    encrypted = p.encrypt_txt("Hello World", public=public,n=n)
+    print(p.decrypt_txt(encrypted, private=private, n=n))
