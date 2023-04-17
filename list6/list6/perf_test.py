@@ -1,7 +1,7 @@
 import timeit
 import matplotlib.pyplot as plt
 
-from NWD import ENWD
+from NWD import ENWD, RNWD
 
 
 def profile(target, n, m: int=10000):
@@ -27,4 +27,4 @@ def visualize(func, n, b: int):
 
 
 if __name__ == '__main__':
-    visualize(ENWD, 256, 10000)
+    visualize(RNWD, 256, 100)

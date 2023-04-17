@@ -27,5 +27,5 @@ public_key, private_key = generate_keypair(p, q)
 message = "Hello, World!"
 encrypted_message = encrypt(public_key, message)
 decrypted_message = decrypt(private_key, encrypted_message)
-
+print(encrypted_message)
 print(decrypted_message)

@@ -28,3 +28,4 @@ def RNWD(a, b):
 
 if __name__ == '__main__':
     print(RNWD(10, 6))
+    print(ENWD(10, 6))

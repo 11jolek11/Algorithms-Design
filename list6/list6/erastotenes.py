@@ -13,7 +13,7 @@ def sieve(p: int):
         if x[i]:
             for j in range(2, floor(p/i)+1):
                 x[i*j] = False
-    return x[2:]
+    return x[1:]
 
 
 if __name__ == "__main__":
