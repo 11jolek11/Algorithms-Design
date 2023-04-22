@@ -8,6 +8,7 @@ def axe(message, p, q, size=8):
     return chunks
 
 def int_form_to_bytes(sequence, encoding="UTF-8"):
+    # return sequence.to_bytes((sequence.bit_length()) // 8, byteorder="big").decode(encoding)
     return sequence.to_bytes((sequence.bit_length() + 7) // 8, byteorder="big").decode(encoding)
 
 def generate_keypair(p, q):
@@ -21,6 +22,7 @@ def generate_keypair(p, q):
     return (e, n), (d, n)
 
 def safe_prime():
+    # openssl prime -generate -bits 8
     pass
 
 def encrypt(public, plaintext, encoding="UTF-8"):
@@ -38,13 +40,13 @@ if __name__ == '__main__':
 
     mes = "Hello, World!"
 
-    p = 61
-    q = 53
+    # p = 61
+    # q = 53
+
+    p = 58153
+    q = 61553
 
     public_key, private_key = generate_keypair(p, q)
-
-    print("Public key: ", public_key) 
-    print("Private key: ", private_key) 
 
     parts = axe(mes, p, q)
 
@@ -53,6 +55,7 @@ if __name__ == '__main__':
     plain_text = "" 
     for chunk in cipher_text: 
         plain_text += decrypt(private_key, chunk) 
-    
-    print("Cipher text ", cipher_text) 
-    print("Decrypted text: ", plain_text)
+
+    print("Message: ", mes)
+    print("Encrypted: ", cipher_text) 
+    print("Decrypted: ", plain_text)

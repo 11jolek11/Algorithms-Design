@@ -40,7 +40,7 @@ def visualize(n, b: int):
 
 if __name__ == '__main__':
     # visualize(RNWD, 10, 100)
-        visualize(10, 100)
+    visualize(10, 100)
 
 
     # print(gcd_prime_factorization(56, 0))

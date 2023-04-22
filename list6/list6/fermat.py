@@ -25,4 +25,6 @@ def test(n, t):
 
 if __name__ == "__main__":
     # print(fast_modulo(12, 53, 7))
+    # print(test(17, 20))
     print(test(17, 20))
+
