@@ -82,6 +82,9 @@ def find_common(a, b):
 
 
 def RNWD(a, b):
+    if a*b == 0:
+        return "error"
+    
     nwd = 1
 
     divx = find_factors(a)
@@ -167,5 +170,8 @@ if __name__ == '__main__':
     print(RNWD(50, 50))
     print(RNWD(3, 7))
     # print(gcd_prime_factorization(30, 70))
-
+    print("###################")
+    print(RNWD(42, 126))
+    print(RNWD(48, 720))
+    print(RNWD(48, 0))
     # print(ENWD(12, 20))
