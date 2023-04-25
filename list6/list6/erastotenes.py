@@ -23,6 +23,5 @@ def sieve(p: int):
 if __name__ == "__main__":
     n = 10
     numbers = list(range(n))
-    binary = sieve(15)
-    print(binary)
+    binary = sieve(100)
 

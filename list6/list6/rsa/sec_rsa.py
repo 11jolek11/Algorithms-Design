@@ -38,7 +38,8 @@ def decrypt(private, ciphertext, encoding="UTF-8"):
 if __name__ == '__main__':
     cipher_text = []
 
-    mes = "Hello, World!"
+    # mes = "Hello, World!"
+    mes = "Hello"*5
 
     # p = 61
     # q = 53

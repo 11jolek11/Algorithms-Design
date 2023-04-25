@@ -10,7 +10,7 @@ def prime_factorize(number):
             return factors
         if x%n==0:
             factors.append(n)
-            return recurse(factors, x/n, n)
+            return recurse(factors, x//n, n)
         else:
             return recurse(factors, x, n+1)
     return recurse([], number, 2)
@@ -18,5 +18,5 @@ def prime_factorize(number):
 
 if __name__ == "__main__":
     # print(find_primes(100, 100, []))
-    print(prime_factorize(125))
+    print(prime_factorize(100))
 

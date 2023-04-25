@@ -78,7 +78,7 @@ def miller_rabin(n, q):
 
 
 if __name__ == '__main__':
-    n = 13
+    n = 1935751
     t = 10
     print(set([miller_rabin(n, t) for _ in range(1000)]))
     # print(set([witness(1, n-1) for _ in range(10000)]))
