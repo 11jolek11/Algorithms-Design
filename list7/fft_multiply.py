@@ -19,3 +19,6 @@ def poly_multiply(p, q):
     
     return r
 
+
+if __name__ == '__main__':
+    print(poly_multiply([2, 1, 2], [3, 4]))
