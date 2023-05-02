@@ -60,7 +60,7 @@ def add_node(start, coeff, power):
 
 # Function two Multiply two polynomial Numbers
 def multiply(poly1, poly2, poly3):
-  
+    
     # Create two pointer and store the
     # address of 1st and 2nd polynomials
     ptr1 = poly1
@@ -100,7 +100,29 @@ def multiply(poly1, poly2, poly3):
     # print("########")
     # remove_duplicates(poly3)
     return poly3
-  
+
+
+def multiply_from_list(a, b):
+    poly1 = None
+    poly2 = None
+
+    # for i in range(len(a), -1, -1):
+    #     poly1 = add_node(poly1, a[i], i)
+
+    # for i in range(len(b), -1, -1):
+    #     poly2 = add_node(poly2, b[i], i)
+
+
+    for i in range(len(a)):
+            poly1 = add_node(poly1, a[i], len(a) - 1 - i)
+    # print(str(poly1))
+
+    for i in range(len(b)):
+        poly2 = add_node(poly2, b[i], len(b) - 1 - i)
+    # print(str(poly2))
+
+    return multiply(poly1, poly2, None)
+
 # Driver Code
 if __name__=='__main__':
     poly1 = None
@@ -120,15 +142,16 @@ if __name__=='__main__':
   
     # Displaying 1st polynomial
     print("1st Polynomial:- ", end = '')
-    print(str(poly1))
+    # print(str(poly1))
   
     # Displaying 2nd polynomial
     print("2nd Polynomial:- ", end = '')
-    print(str(poly2))
+    # print(str(poly2))
     # calling multiply function
     poly3 = multiply(poly1, poly2, poly3)
   
     # Displaying Resultant Polynomial
     print("Resultant Polynomial:- ", end = '')
-    print(str(poly3))
+    # print(str(poly3))
     # print(str(remove_duplicates(poly3)))
+    multiply_from_list([3, 2], [3, 2, 1])
