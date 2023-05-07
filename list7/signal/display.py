@@ -1,9 +1,7 @@
 from generate import Signal
 from filter import Filter
-import random
 import numpy as np
 import matplotlib.pyplot as plt
-
 
 
 def clear_plot(data):
@@ -19,7 +17,6 @@ def clear_plot(data):
     axs[1].plot(np.abs(np.fft.fft(data)), color="tab:orange")
     axs[1].title.set_text("Clear signal freq")
     plt.savefig("test.png")
-
 
 
 def filtered_plot(data):
@@ -45,4 +42,3 @@ if __name__ == "__main__":
     filter.signal = data
     filter.out(to_remove)
     filtered_plot(filter.signal)
-

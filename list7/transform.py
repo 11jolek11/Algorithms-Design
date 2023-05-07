@@ -1,98 +1,59 @@
+from math import pi, e
 import numpy as np
-from math import cos, sin, log, pi
-from cmath import exp
 
 
-
-def fft_recursive(x):
+def cooley_tukey(x):
     """
-    Compute the one-dimensional discrete Fourier Transform of the signal x using the recursive FFT algorithm.
+    Cooley-Tukey implementation
     """
-    # Compute the length of the input signal x
     N = len(x)
-    
-    # If the signal has only one element, return it
     if N == 1:
-        return x
-    
-    # Split the signal into even and odd parts
-    even = fft_recursive(x[::2])
-    odd = fft_recursive(x[1::2])
-    
-    # Compute the values of the DFT at each frequency using the butterfly method
-    k = np.arange(N)
-    t = np.exp(-2j * np.pi * k / N)
-    DFT = np.concatenate([even + t[:N//2] * odd, even + t[N//2:] * odd])
-    
-    return DFT
+        return [
+            x[0],
+        ]
 
-
-def bit_reverse(x):
-    N = len(x)
-    temp = [i for i in range(N)]
-    for k in range(N):
-        b = sum(
-                1 << int(log(N, 2)) - 1 -
-                i for i in range(int(log(N, 2))) if k >> i & 1
-                )
-        temp[k] = x[b]
-        temp[b] = x[k]
-    return temp
-
-
-def cooley_tucker(x):
-    """
-    Compute the FFT using Cooley Tucker algorithm.
-    """
-    N = len(x)
-    X = bit_reverse(x)
-
-    for i in range(1, int(log(N, 2)) + 1):
-        stride = 2 ** i
-        w = exp(-2.0j * pi / stride)
-        for j in range(0, N, stride):
-            v = 1
-            for k in range(stride // 2):
-                X[k + j + stride // 2] = X[k + j] - v * X[k + j + stride // 2]
-                X[k + j] -= X[k + j + stride // 2] - X[k + j]
-                v *= w
+    X = [0 for _ in range(N)]
+    even = cooley_tukey(x[0::2])
+    odd = cooley_tukey(x[1::2])
+    for k in range(N // 2):
+        omega = e ** (-2j * pi * k / N)
+        X[k] = even[k] + omega * odd[k]
+        X[k + N // 2] = even[k] - omega * odd[k]
     return X
 
 
-def ifdft(X: list[complex]):
-    x = [0 for _ in range(len(X))]
-    for n in range(len(X)):
-        for k in range(len(X)):
-            theta = (2 * pi * k * n)/len(x)
-            x[n] += X[k].real * cos(theta) + X[k].imag * sin(theta)
-        x[n] /= len(X)
-    return x
+def ifft(x):
+    """
+    Inverse Fourier transform using conjungate
+    """
+    # Take the complex conjugate of the input array
+    x_conj = np.conjugate(x)
+
+    # Apply the forward FFT on the conjugate input array
+    y_conj = np.fft.fft(x_conj)
+
+    # Take the complex conjugate of the resulting array to obtain the inverse FFT
+    final = np.conjugate(y_conj)
+    # Divide the resulting array by the length of the input array
+    final /= len(x)
+
+    return final
 
 
-import numpy as np
-
-def ifft(X):
-    N = len(X)
-    x = np.zeros(N, dtype=np.complex128)
-    for n in range(N):
-        for k in range(N):
-            x[n] += X[k] * np.exp(2j*np.pi*k*n/N)
-        x[n] /= N
-    return x
-
-
-#Driver code
 if __name__ == "__main__":
-    x = np.array([0, 1, 2, 3])
-    X = cooley_tucker(x)
-    print(X)
-    print("^^^^^^")
-    print(ifft(X))
-    print("$$$$$4444")
-    test = np.fft.fft(x)
-    print("**********")
-    print(cooley_tucker(X))
-    print()
-    print(test)
-    print(np.fft.ifft(test))
+    x_values = np.arange(0, 128, 1)
 
+    x_test = np.sin((2 * np.pi * x_values / 32.0))
+    x_test += np.sin((2 * np.pi * x_values / 64.0))
+    x_test = x_test.tolist()
+
+    X_in = cooley_tukey(x_test)
+
+    X_test = np.fft.fft(x_test)
+
+    print("Test of cooley_tukey")
+    print(np.allclose(X_in, X_test))
+
+    print("Test of ifft")
+    print(np.allclose(ifft(X_test), x_test))
+    print(np.allclose(ifft(X_test), np.fft.ifft(X_test)))
