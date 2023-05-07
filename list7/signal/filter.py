@@ -1,16 +1,13 @@
 import numpy as np
-import matplotlib.pyplot as plt
-
 
 
 class Filter():
     def __init__(self) -> None:
         self._signal = None
-        self._signal_fft = None 
+        self._signal_fft = None
 
     @property
     def signal(self):
-        """The signal property."""
         return self._signal
 
     @signal.setter
@@ -22,11 +19,10 @@ class Filter():
     def signal(self):
         return self._signal
 
-
     def out(self, frequencies: list):
-        # TODO: znajdz lepszy sposob na reprezentacje czestotliwosci do usuniecia
+        # TODO: znajdz lepszy sposob na reprezentacje czestotliwosci do
+        # usuniecia
 
         # frequencies: numery indeksow w do usuniecia
         self._signal_fft = np.delete(self._signal_fft, frequencies)
         self._signal = np.fft.ifft(self._signal_fft)
-
