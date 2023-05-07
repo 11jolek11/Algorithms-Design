@@ -271,9 +271,117 @@ def task3():
     with open('task3.json', 'w') as file:
         file.write(entire.json())
 
+# def task_c():
+#     entire = Combine(
+#             metadata=Metadata(start_state="q0", end_state=["qr", "qa"]),
+#             config=Config(config=
+#                 {
+#                      "q0": {
+#                         "b": RelationContent(write="!b", next_state="q2", move="R"),
+#                         "a": RelationContent(write="!a", next_state="q1", move="R"),
+#                         "_": RelationContent(write="_", next_state="qa", move="R"),
+#                      },
+#                      "q1": {
+#                          "a": RelationContent(write="a", next_state="q1", move="R"),
+#                          "b": RelationContent(write="b", next_state="q1", move="R"),
+#                          "_": RelationContent(write="_", next_state="q3", move="L"),
+#                          "!a": RelationContent(write="!a", next_state="q1", move="R"),
+#                          "!b": RelationContent(write="!b", next_state="q1", move="R"),
+#                      },
+#                      "q2": {
+#                          "b": RelationContent(write="b", next_state="q2", move="R"),
+#                          "a": RelationContent(write="a", next_state="q2", move="R"),
+#                          "_": RelationContent(write="_", next_state="q4", move="L"), 
+#                          "!b": RelationContent(write="!b", next_state="q2", move="R"),
+#                          "!a": RelationContent(write="!a", next_state="q2", move="R"),                      
+#                          },
+#                     "q3": {
+#                         "a": RelationContent(write="!a", next_state="q5", move="L"),
+#                         "!a": RelationContent(write="!a", next_state="q3", move="L"),
+#                         "!b": RelationContent(write="!b", next_state="q3", move="L"),
+#                     },
+#                     "q4": {
+#                         "b": RelationContent(write="!b", next_state="q6", move="R"),
+#                         "!a": RelationContent(write="!a", next_state="q6", move="R"),
+#                         "!b": RelationContent(write="!b", next_state="q6", move="R"),
+#                      },
+#                     "q5": {
+#                         "a": RelationContent(write="a", next_state="q5", move="L"),
+#                         "b": RelationContent(write="b", next_state="q5", move="L"),
+#                         "!a": RelationContent(write="!a", next_state="q0", move="R"), 
+#                         "!b": RelationContent(write="!b", next_state="q0", move="R"),
+#                         "_": RelationContent(write="_", next_state="q5", move="L"), 
+#                        },
+#                     "q6": {
+#                         "a": RelationContent(write="a", next_state="q6", move="L"),
+#                         "b": RelationContent(write="b", next_state="q6", move="L"),
+#                         "!a": RelationContent(write="!a", next_state="q0", move="R"), 
+#                         "!b": RelationContent(write="!b", next_state="q0", move="R"),
+#                         "_": RelationContent(write="_", next_state="q6", move="L"),
+#                        },
+#                 }
+#             ),
+#         )
+    
+#     with open('task_c.json', 'w') as file:
+#         file.write(entire.json())
+
+
+def task_c():
+    entire = Combine(
+            metadata=Metadata(start_state="q0", end_state=["qr", "qa"]),
+            config=Config(config=
+                {
+                     "q0": {
+                        "_": RelationContent(write="_", next_state="q1", move="R"),
+                     },
+                     "q1": {
+                        "b": RelationContent(write="_", next_state="q5", move="R"),
+                        "a": RelationContent(write="_", next_state="q2", move="R"),
+                        "_": RelationContent(write="_", next_state="qa", move="R"),
+                     },
+                     "q2": {
+                         "b": RelationContent(write="b", next_state="q2", move="R"),
+                         "a": RelationContent(write="a", next_state="q2", move="R"),
+                         "_": RelationContent(write="_", next_state="q3", move="L"),                      
+                         },
+                    "q3": {
+                        "a": RelationContent(write="_", next_state="q4", move="L"),
+                        "_": RelationContent(write="_", next_state="qa", move="R"),
+                    },
+                    "q4": {
+                        "_": RelationContent(write="_", next_state="q1", move="R"),
+                        "a": RelationContent(write="a", next_state="q4", move="L"),
+                        "b": RelationContent(write="b", next_state="q4", move="L"),
+                     },
+                    "q5": {
+                        "a": RelationContent(write="a", next_state="q5", move="R"),
+                        "b": RelationContent(write="b", next_state="q5", move="R"),
+                        "_": RelationContent(write="_", next_state="q6", move="L"), 
+                       },
+                    "q6": {
+                        "b": RelationContent(write="_", next_state="q7", move="L"),
+                        "_": RelationContent(write="_", next_state="qa", move="R"),
+                       },
+                    "q7": {
+                        "b": RelationContent(write="b", next_state="q7", move="L"),
+                        "a": RelationContent(write="a", next_state="q7", move="L"),
+                        "_": RelationContent(write="_", next_state="q1", move="R"),
+                       },
+                       
+
+                }
+            ),
+        )
+    
+    with open('task_c.json', 'w') as file:
+        file.write(entire.json())
+
 
 if __name__ == "__main__":
-    task1()
-    task2()
-    task3()
-    task4()
+    # task1()
+    # task2()
+    # task3()
+    # task4()
+    task_c()
+
