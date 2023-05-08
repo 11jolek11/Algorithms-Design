@@ -95,19 +95,77 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Number of samplepoints
-N = 100
+N = 200
 # sample spacing
 T = 1.0 / 800.0
 x = np.linspace(0.0, N*T, N)
 # y = np.sin(50.0 * 2.0*np.pi*x) + 0.5*np.sin(80.0 * 2.0*np.pi*x)
 # y = 2*np.sin(2*35*np.pi*x) + np.sin(2*20*np.pi*x) + np.sin(2*15*np.pi*x)
-y = np.cos(x)
-yf = np.fft.fft(y)
+# y = np.cos(x)
+y = 1*np.sin(2*np.pi*x) + 0*np.cos(0*x) + 4*np.sin(6*np.pi*x)
+plt.plot(x, y)
+plt.show()
+yf = np.fft.rfft(y)
 # xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
-xf = np.fft.fftfreq(N, T)
+xf = np.fft.rfftfreq(N, T)
 
 fig, ax = plt.subplots()
 # ax.plot(xf[:N//2], np.abs(yf[:N//2]))
 ax.plot(xf, np.abs(yf))
 
+plt.show()
+
+# ######################################################################################################################3
+
+# Fs = 2000
+# tstep = 1 / Fs
+
+# f0 = 100
+
+# N = int(10*Fs/f0)
+
+# t = np.linspace(0, (N-1)*tstep, N)
+# fstep = Fs/N
+# f = np.linspace(0, (N-1)*fstep, N)
+
+# y = 1*np.sin(2*np.pi*f0*t) + 4 * np.sin(2*np.pi*3*f0*t)
+
+# X = np.fft.fft(y)
+
+# X_mag = np.abs(X)/N
+
+# f_plot = f[0:int(N/2+1)]
+# X_mag_plot = 2*X_mag[0:int(N/2+1)]
+
+# X_mag_plot[0] = X_mag_plot[0] / 2
+
+# fig, [ax1, ax2] = plt.subplots(nrows=2, ncols=1)
+# ax1.plot(t, y, '.-')
+# ax2.plot(f_plot, X_mag_plot, '.-')
+# plt.show()
+
+Fs = 2000
+tstep = 1 / Fs
+
+N = 128
+
+t = np.linspace(0, tstep, N)
+fstep = Fs/N
+f = np.linspace(0, (N-1)*fstep, N)
+
+y = 1*np.sin(2*np.pi*t) + 4 * np.sin(2*np.pi*3*t)
+y = 2*np.sin(2*np.pi*35*t) + np.sin(2*np.pi*20*t) + np.sin(2*np.pi*15*t)
+
+X = np.fft.fft(y)
+
+X_mag = np.abs(X)/N
+
+f_plot = f[0:int(N/2+1)]
+X_mag_plot = 2*X_mag[0:int(N/2+1)]
+
+X_mag_plot[0] = X_mag_plot[0] / 2
+
+fig, [ax1, ax2] = plt.subplots(nrows=2, ncols=1)
+ax1.plot(t, y, '.-')
+ax2.plot(f_plot, X_mag_plot, '.-')
 plt.show()

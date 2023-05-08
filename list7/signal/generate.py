@@ -10,14 +10,16 @@ class Signal():
         self._sampling_freq = sampling_freq
         self._signal_freq = signal_freq
         self._time_interval = 1/self._sampling_freq
-        self.number_of_samples = int(self._sampling_freq//self._signal_freq)
+        self.number_of_samples = int(10*self._sampling_freq//self._signal_freq)
         self._freq_interval = self._sampling_freq / self.number_of_samples
         self._time_domain = np.linspace(0,
-                                        (self.number_of_sample - 1)*self._time_interval,
-                                        self.number_of_samples)
-        self._freq_domain = np.linspace(0,
-                                        (self.number_of_sample - 1)*self._freq_interval,
-                                        self.number_of_samples)
+                                        (self.number_of_samples - 1)*self._time_interval,
+                                        self.number_of_samples) # use
+        # self._freq_domain = np.linspace(0,
+        #                                 (self.number_of_samples - 1)*self._freq_interval,
+        #                                 self.number_of_samples)
+        self._freq_domain = np.fft.rfftfreq(self.number_of_samples, self._freq_interval) # use
+        # self._freq_domain = np.fft.fftfreq(self.number_of_samples, self._freq_interval)
         self.signal = np.empty(self._time_domain.size)
         self.transform = np.empty(self._freq_domain.size)
 
@@ -26,7 +28,8 @@ class Signal():
         return self._time_domain, self.signal
 
     def make_fft(self):
-        self.transform = np.fft.fft(self.signal)
+        # self.transform = np.fft.fft(self.signal)
+        self.transform = np.fft.rfft(self.signal)
         return self._freq_domain, self.transform
 
 
