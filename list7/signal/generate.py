@@ -4,30 +4,33 @@ from typing import Callable
 
 class Signal():
     def __init__(self, func: Callable[[np.ndarray], np.ndarray],
-                 sampling_freq: int,
-                 signal_freq: int) -> None:
+                 number_of_samples: int) -> None:
         self._gen_func = func
-        self._sampling_freq = sampling_freq
-        self._signal_freq = signal_freq
-        self._time_interval = 1/self._sampling_freq
-        self.number_of_samples = int(self._sampling_freq//self._signal_freq)
-        self._freq_interval = self._sampling_freq / self.number_of_samples
-        self._time_domain = np.linspace(0,
-                                        (self.number_of_sample - 1)*self._time_interval,
-                                        self.number_of_samples)
-        self._freq_domain = np.linspace(0,
-                                        (self.number_of_sample - 1)*self._freq_interval,
-                                        self.number_of_samples)
-        self.signal = np.empty(self._time_domain.size)
+        # liczba probek LP
+        self.number_of_samples = number_of_samples
+        # czestosc probek CP
+        self._sampling_freq = 1/self.number_of_samples
+        # momenty probkowania MP
+        self._probe_moments = np.arange(0, (self.number_of_samples - 1)*self._sampling_freq + 1, self._sampling_freq)
+
+        # czestotliwosc CZ
+        # self._freq_domain = np.arange(0, self.number_of_samples/2, 1)
+        self._freq_domain = np.fft.rfftfreq(self.number_of_samples, 1/self.number_of_samples)
+        print(self._freq_domain[0])
+        print(self._freq_domain[1] - self._freq_domain[0])
+
+
+        self.signal = np.empty(self._probe_moments.size)
         self.transform = np.empty(self._freq_domain.size)
 
     def generate(self):
-        self.signal = self._gen_func(self._signal_freq*self._time_domain)
-        return self._time_domain, self.signal
+        self.signal = self._gen_func(self._probe_moments)
+        return self._probe_moments, self.signal
 
     def make_fft(self):
         self.transform = np.fft.fft(self.signal)
-        return self._freq_domain, self.transform
+        return self._freq_domain, np.abs(self.transform[0:int(self.number_of_samples/2) + 1])/se
+        # return self._freq_domain, 2*np.abs(self.transform[0:int(self.number_of_samples/2)])
 
 
 class CreateSignal():
@@ -61,5 +64,16 @@ class CreateSignal():
     def __str__(self) -> str:
         return self._gen_func
 
-    def create(self, sampling_f=2000, signal_f=100):
-        return Signal(self._lambda_func, sampling_f, signal_f)
+    def create(self, number_of_samples=128):
+        return Signal(self._lambda_func, number_of_samples)
+
+
+if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+    creator = CreateSignal(['2', '1', '1'], ['70*np.pi', '40*np.pi', '30*np.pi'], ['0'], ['0'])
+    print(str(creator))
+    p = creator.create()
+    plt.plot(*p.generate())
+    plt.show()
+    plt.plot(*p.make_fft(), '.-', color="tab:orange")
+    plt.show()
