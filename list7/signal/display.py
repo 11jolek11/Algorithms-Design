@@ -1,4 +1,4 @@
-from generate import Signal
+from generate import CreateSignal
 from filter import Filter
 import numpy as np
 import matplotlib.pyplot as plt
@@ -32,8 +32,7 @@ def filtered_plot(data):
 
 
 if __name__ == "__main__":
-    p = Signal([2], [3], [3], [2])
-    print(str(p))
+    p = CreateSignal()
     data, _ = p.generate_array()
     clear_plot(data)
     to_remove = list(range(26))
