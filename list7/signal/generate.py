@@ -1,7 +1,29 @@
 import numpy as np
+from typing import Callable
 
 
 class Signal():
+    def __init__(self, func: Callable[[float], float],
+                 sampling_freq: int,
+                 signal_freq: int) -> None:
+        self._func = func
+        self._sampling_freq = sampling_freq
+        self._signal_freq = signal_freq
+        self._time_interval = 1/self._sampling_freq
+        self.number_of_samples = int(self._sampling_freq//self._signal_freq)
+        self._freq_interval = self._sampling_freq / self.number_of_samples
+        self._time_domain = np.linspace(0,
+                                        (self.number_of_sample - 1)*self._time_interval,
+                                        self.number_of_samples)
+        self._freq_domain = np.linspace(0,
+                                        (self.number_of_sample - 1)*self._freq_interval,
+                                        self.number_of_samples)
+        
+
+        
+
+
+class CreateSignal():
     def __init__(self,
                  A: list,
                  a: list,
@@ -38,13 +60,13 @@ class Signal():
     def __str__(self) -> str:
         return self._func
 
-    def generate_array(self, start=0, stop=20, step=0.1, save=True):
-        arr = np.empty(int((stop-start)/step))
-        time = []
-        datapoint = np.arange(start, stop, step)
-        for point in range(int((stop-start)/step)):
-            arr[point] = self._lambda_func(datapoint[point])
-            time.append(point)
-        if save:
-            self._value_axis = arr
-        return arr, time
+    # def generate_array(self, start=0, stop=20, step=0.1, save=True):
+    #     arr = np.empty(int((stop-start)/step))
+    #     time = []
+    #     datapoint = np.arange(start, stop, step)
+    #     for point in range(int((stop-start)/step)):
+    #         arr[point] = self._lambda_func(datapoint[point])
+    #         time.append(point)
+    #     if save:
+    #         self._value_axis = arr
+    #     return arr, time
