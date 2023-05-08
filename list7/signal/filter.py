@@ -28,7 +28,5 @@ class Filter():
         mask = []
         for i in range(len(self._freq_domain)):
             if self._freq_domain[i] in frequencies:
-                mask.append(False)
-            else:
-                mask.append(True)
-        return self._freq_domain[mask], self._signal_fft[mask]
+                mask.append(i)
+        np.put(self._signal_values, mask, 0.0)
