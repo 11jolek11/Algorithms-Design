@@ -144,28 +144,43 @@ plt.show()
 # ax2.plot(f_plot, X_mag_plot, '.-')
 # plt.show()
 
-Fs = 2000
-tstep = 1 / Fs
 
-N = 128
 
-t = np.linspace(0, tstep, N)
-fstep = Fs/N
-f = np.linspace(0, (N-1)*fstep, N)
+LP = 128
 
-y = 1*np.sin(2*np.pi*t) + 4 * np.sin(2*np.pi*3*t)
-y = 2*np.sin(2*np.pi*35*t) + np.sin(2*np.pi*20*t) + np.sin(2*np.pi*15*t)
+CP = 1 / LP
 
-X = np.fft.fft(y)
+# MP = np.arange(0, (N-1)*CP, CP)
+MP = np.arange(CP, 1, CP)
 
-X_mag = np.abs(X)/N
+fstep = 1
+# CZ = np.arange(0, LP/2 - 1, fstep)
+CZ = np.arange(0, LP - 1, fstep)
 
-f_plot = f[0:int(N/2+1)]
-X_mag_plot = 2*X_mag[0:int(N/2+1)]
+print(CZ.shape)
+# CZ = np.fft.fftshift(CZ)[0:LP//2]
 
-X_mag_plot[0] = X_mag_plot[0] / 2
+# y = 1*np.sin(2*np.pi*t) + 4 * np.sin(2*np.pi*3*t)
+S = 2*np.sin(2*np.pi*35*MP) + np.sin(2*np.pi*20*MP) + np.sin(2*np.pi*15*MP)
 
-fig, [ax1, ax2] = plt.subplots(nrows=2, ncols=1)
-ax1.plot(t, y, '.-')
-ax2.plot(f_plot, X_mag_plot, '.-')
+Y = np.abs(np.fft.fft(S))
+Y = np.fft.fftshift(Y)
+
+print(CZ.shape)
+print(Y.shape)
+
+
+plt.plot(CZ, Y)
 plt.show()
+
+# X_mag = np.abs(X)/N
+
+# f_plot = f[0:int(N/2+1)]
+# X_mag_plot = 2*X_mag[0:int(N/2+1)]
+
+# X_mag_plot[0] = X_mag_plot[0] / 2
+
+# fig, [ax1, ax2] = plt.subplots(nrows=2, ncols=1)
+# ax1.plot(t, y, '.-')
+# ax2.plot(f_plot, X_mag_plot, '.-')
+# plt.show()
