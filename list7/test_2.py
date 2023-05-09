@@ -32,7 +32,6 @@ MP = np.arange(CP, 1, CP)
 
 fstep = 1
 
-# S = 2*np.sin(2*np.pi*35*MP) + np.sin(2*np.pi*20*MP) + np.sin(2*np.pi*15*MP)
 S = _lambda_func(MP)
 
 # CZ = np.arange(0, LP - 1, fstep)
@@ -47,31 +46,16 @@ plt.show()
 
 Y_to_plot = np.abs(Y)[:CZ.shape[0]]
 
-# temp_cz = np.fft.fftshift(CZ)
-
-# print(CZ.shape)
-# print(temp_cz.shape)
-
-# plt.plot(temp_cz, np.abs(Y)[0:temp_cz.shape[0]], color="tab:orange")
-
-# Y[LP//2 - 36] = 0
-# Y[LP//2 + 36] = 0
-# Y[LP//2 - 20] = 0
-# Y[LP//2 + 20] = 0
-
-# FIXME: Possible point of fail
-# Y = np.fft.fftshift(Y)
-
-# frequencies = [LP//2 - 36, LP//2 + 36, LP//2 - 20, LP//2 + 20]
-frequencies = [LP//2 - 25, LP//2 + 36]
 Y = np.fft.fftshift(Y)
+
+frequencies = [LP//2 - 25, LP//2 + 36]
 for frequency in frequencies:
     Y[frequency] = 0
 
 # Y[:CZ.shape[0]] = Y[:CZ.shape[0]]*(np.absolute(CZ) < 2)
-
-# Y = Y[:CZ.shape[0]]*(np.absolute(CZ) < 2)
-
+# TODO: imlement me!
+# Y = Y*(np.absolute(CZ) < 2)
+print(Y.shape)
 Y = np.fft.fftshift(Y)
 
 S_NEW = np.fft.ifft(Y).real
@@ -80,7 +64,6 @@ Y = np.fft.fft(S_NEW)
 
 plt.plot(CZ, Y_to_plot, color="tab:orange", label="Old")
 plt.plot(CZ, np.abs(Y)[:CZ.shape[0]], label="New")
-# plt.plot(CZ, np.abs(np.fft.fft(S_NEW))[:CZ.shape[0]], label="New")
 plt.legend()
 plt.show()
 
