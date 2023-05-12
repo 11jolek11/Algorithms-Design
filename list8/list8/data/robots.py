@@ -2,6 +2,7 @@ from dataclasses import astuple, dataclass
 import random
 import json
 import os
+from re import template
 
 
 @dataclass(frozen=True)
@@ -11,6 +12,10 @@ class Robot:
     price: float
     robot_range: int
     camera: int
+
+    def __str__(self) -> str:
+        str_form = '| {:>3} | {:>7} | {:>2} | {:>1} |'
+        return str_form.format(self.type, "{0:0.2f}".format(self.price), self.robot_range, self.camera)
 
 
 class Table:
@@ -29,8 +34,17 @@ class Table:
                     )
             )
 
+    def show(self):
+        header = 26*'#'
+        print(header)
+        for robot in self.frame:
+            print(str(robot))
+        print(header)
+
     def convert_to_tuples(self):
         self.frame_tuple = list(map(astuple, self.frame)) 
+
+    # TODO: Add convert_to_robots, from list[Robot] to list(tuple) 
 
     def dump(self, file_path: str) -> None:
         self.convert_to_tuples()
