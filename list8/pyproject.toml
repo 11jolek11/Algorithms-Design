@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "list8"
+version = "0.1.0"
+description = ""
+authors = ["11jolek11 <dabrowskiandrzej094@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+matplotlib = "^3.7.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+flake8 = "^6.0.0"
+pylint = "^2.17.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
