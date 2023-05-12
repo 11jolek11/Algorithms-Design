@@ -53,7 +53,7 @@ for frequency in frequencies:
     Y[frequency] = 0
 
 # Y[:CZ.shape[0]] = Y[:CZ.shape[0]]*(np.absolute(CZ) < 2)
-# TODO: imlement me!
+# TODO: implement me!
 # Y = Y*(np.absolute(CZ) < 2)
 print(Y.shape)
 Y = np.fft.fftshift(Y)
