@@ -1,4 +1,4 @@
-from data.robots import Table, Robot
+from data.robots import Table
 import inspect
 
 
@@ -10,35 +10,33 @@ def sort_by_group(group: str, table: Table):
     table.frame.sort(key=lambda name: dict(list(inspect.getmembers(name)))[group])
 
 
-def gen_keys(vector: list):
-    keys = []
-    for key in vector:
-        if type(key) is not list:
-            keys.append([key, ])
-        elif key is None:
-            keys.append(None)
-        else:
-            keys.append(key)
-    return keys
+def binary_search(table: Table, wanted, group, left=0, right=None):
+    table = table.frame
+    if right is None:
+        right = len(table)
+
+    mid = left + (right - 1) // 2
+
+    if dict(list(inspect.getmembers(table[mid])))[group] == wanted:
+        return table[mid]
+
+    elif dict(list(inspect.getmembers(table[mid])))[group] < wanted:
+        left = mid + 1
+
+    else:
+        right = mid - 1
+    return False
 
 
-# V2
-def have_prop(robot: Robot, vector: list):
-    prop = [robot.type, robot.price, robot.robot_range, robot.camera]
-    counter = 0
-    for i in range(len(vector)):
-        if vector[i] is not None and prop[i] in vector[i]:
-            counter += 1
-        else:
-            counter -= 1
-    return counter == len(prop)
-
-# def binary_search(table: list, wanted, left=0, right=None):
-#     if right is None:
-#         right = len(table)
-
-#     mid = left + (right - 1) // 2
-
+def binary_repeat(table: Table, wanted: list, group):
+    found = False
+    i = 0
+    while not found:
+        result = binary_search(table, wanted[i], group)
+        if result is not False:
+            print(result)
+            break
+        i += 1
 
 
 if __name__ == '__main__':
