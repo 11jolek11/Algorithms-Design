@@ -42,7 +42,7 @@ def linear_search(data: list, search: list):
         # V1
         # if ((robot.type is in search[0]) ^ (search[0] == None)) and (robot.price is in search[1] ^ search[1] == None) and (robot.robot_range is in search[2] ^ search[2] == None) and (robot.camera is in search[3] ^ search[3] == None):
         #     return robot
-        # V2 
+        # V2
         if have_prop(robot, search):
             return robot
         # V3 
