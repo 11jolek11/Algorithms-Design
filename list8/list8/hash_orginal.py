@@ -12,6 +12,7 @@ class HashTable:
 
         self._content = [None for _ in range(self.size)]
 
+
     def get_hash(self, key, iteration=0) -> int:
         # key = hash(key)
         temp = (key % self.size + self.c*iteration + self.d*iteration**2) % self.size
@@ -57,5 +58,3 @@ if __name__ == '__main__':
     #         k(x) = x
     h.add_item(484846484848)
     print(h.get_item(484846484848))
-    h.add_item(565656556)
-    print(h.get_item(565656556))
