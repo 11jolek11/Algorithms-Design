@@ -58,7 +58,6 @@ if __name__ == "__main__":
         Robot('ASV', 698.0, 41, 1),
         Robot('ASV', 698.0, 41, 1),
         Robot('AGV', 698.0, 41, 1)
-
     ]
     search_keys = [['ASV', 'AGV'], None, None, [1]]
 
