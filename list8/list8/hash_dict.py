@@ -39,7 +39,8 @@ class HashTable:
 
     def key_gen(self, r: Robot, target):
         temp = ""
-        for symbol in str(dict(list(inspect.getmembers(r)))[target]):
+        # for symbol in str(dict(list(inspect.getmembers(r)))[target]):
+        for symbol in str(getattr(r, target)):
             temp += str(ord(symbol))
         return int(temp)
 

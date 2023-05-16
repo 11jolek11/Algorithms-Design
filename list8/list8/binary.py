@@ -1,20 +1,26 @@
 from data.robots import Table, Robot
+from math import floor
 import inspect
 
 
 def sort_by_group(group: str, table: Table):
-    table.frame.sort(key=lambda name: dict(list(inspect.getmembers(name)))[group])
+    # table.frame.sort(key=lambda name: dict(list(inspect.getmembers(name)))[group])
+    table.frame.sort(key=lambda name: getattr(name, group))
 
 
 def binary_search(table: list, wanted, group: str, left, right):
     while left < right:
 
-        mid = left + (right - 1) // 2
+        # mid = left + (right - 1) // 2
+        mid = floor(left + (right - 1))
 
-        if dict(list(inspect.getmembers(table[mid])))[group] == wanted:
+        # if dict(list(inspect.getmembers(table[mid])))[group] == wanted:
+        if getattr(table[mid], group) == wanted:
+            # if getattr(table[mid], group) is wanted:
             return table[mid]
 
-        elif dict(list(inspect.getmembers(table[mid])))[group] >= wanted:
+        # elif dict(list(inspect.getmembers(table[mid])))[group] >= wanted:
+        elif getattr(table[mid], group) >= wanted:
             right = mid - 1
 
         else:
