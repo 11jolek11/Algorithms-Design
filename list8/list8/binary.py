@@ -33,16 +33,17 @@ def binary_repeat(table: Table, wanted: list, group: str):
 
 if __name__ == "__main__":
     test = Table()
-    test.frame = [
-        Robot('AGV', 700.0, 22, 0),
-        Robot('ASV', 699.0, 42, 0),
-        Robot('ASV', 698.0, 97, 1),
-        Robot('ASV', 698.0, 17, 1),
-        Robot('AGV', 698.0, 41, 1)
-    ]
-    test.show()
+    test.fill(200)
+    # test.frame = [
+    #     Robot('AGV', 700.0, 22, 0),
+    #     Robot('ASV', 699.0, 42, 0),
+    #     Robot('ASV', 698.0, 97, 1),
+    #     Robot('ASV', 698.0, 17, 1),
+    #     Robot('AGV', 698.0, 41, 1)
+    # ]
+    # test.show()
     sort_by_group("robot_range", test)
-    test.show()
+    # test.show()
     search_keys = [2, 98, 902]
     # print(binary_search(test.frame, 42, "robot_range", 0, len(test.frame)-1))
 

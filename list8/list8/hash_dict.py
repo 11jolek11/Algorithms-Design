@@ -1,6 +1,6 @@
 from math import gcd
 from random import randint
-from data.robots import Robot
+from data.robots import Robot, Table
 import inspect
 
 
@@ -111,11 +111,23 @@ if __name__ == "__main__":
     # h.insert_item(565656556)
     # print(h.search_item(565656556))
 
-    r = Robot("ACD", 256.0, 89, 0)
-    h = HashTable(max_size=4, alpha=0.5)
+    # r = Robot("ACD", 256.0, 89, 0)
+    # h = HashTable(max_size=4, alpha=0.5)
 
-    d = Robot("D", 256.0, 9, 1)
+    # d = Robot("D", 256.0, 9, 1)
 
-    h.insert_item(r, "price")
-    h.insert_item(d, "price")
-    print(h.search_item(256.0, "price"))
+    # h.insert_item(r, "price")
+    # h.insert_item(d, "price")
+    # print(h.search_item(256.0, "price"))
+
+    t = Table()
+    t.fill(200)
+    h = HashTable(max_size=len(t.frame), alpha=0.5)
+    # t.show()
+    # print(getattr(t.frame[187], "price"))
+    # print(str(dict(list(inspect.getmembers(t.frame[187])))["price"]))
+    var = getattr(t.frame[187], "price")
+
+    for item in t.frame:
+        h.insert_item(item, "price")
+    print(h.search_item(var, "price"))
