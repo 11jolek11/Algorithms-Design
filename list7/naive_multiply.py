@@ -14,9 +14,9 @@
 def multiply(A, B):
     m = len(A)
     n = len(B)
-  
+
     prod = [0] * (m + n - 1)
-            
+
     for i in range(m):
         for j in range(n):
             prod[i + j] += A[i] * B[j]
@@ -24,4 +24,4 @@ def multiply(A, B):
 
 
 if __name__ == "__main__":
-    print(multiply([3, 2], [1, 3, 1]))
+    print(multiply([2, 1, 2], [3, 4]))

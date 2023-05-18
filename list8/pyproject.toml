@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "list7"
+name = "list8"
 version = "0.1.0"
 description = ""
 authors = ["11jolek11 <dabrowskiandrzej094@gmail.com>"]
@@ -8,15 +8,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 matplotlib = "^3.7.1"
-numpy = "^1.24.3"
-seaborn = "^0.12.2"
+pytest = "^7.3.1"
 
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
-wrapt = "^1.15.0"
-dill = "^0.3.6"
-isort = "^5.12.0"
+flake8 = "^6.0.0"
+pylint = "^2.17.4"
+bandit = "^1.7.5"
 
 [build-system]
 requires = ["poetry-core"]

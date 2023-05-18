@@ -41,15 +41,19 @@ def ifft(x):
 
 
 if __name__ == "__main__":
-    x_values = np.arange(0, 128, 1)
+    x_values = np.arange(0, 12, 1)
 
     x_test = np.sin((2 * np.pi * x_values / 32.0))
     x_test += np.sin((2 * np.pi * x_values / 64.0))
     x_test = x_test.tolist()
 
+    print(x_test)
+
     X_in = cooley_tukey(x_test)
 
     X_test = np.fft.fft(x_test)
+
+    print(X_test)
 
     print("Test of cooley_tukey")
     print(np.allclose(X_in, X_test))
