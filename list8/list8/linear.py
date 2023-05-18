@@ -52,14 +52,14 @@ def linear_search(data: list, search: list):
 
 if __name__ == "__main__":
     test = Table()
-    test.frame = [
-        Robot('AGV', 700.0, 22, 0),
-        Robot('ASV', 699.0, 42, 0),
-        Robot('ASV', 698.0, 41, 1),
-        Robot('ASV', 698.0, 41, 1),
-        Robot('AGV', 698.0, 41, 1)
-
-    ]
+    test.fill(1000)
+    # test.frame = [
+    #     Robot('AGV', 700.0, 22, 0),
+    #     Robot('ASV', 699.0, 42, 0),
+    #     Robot('ASV', 698.0, 41, 1),
+    #     Robot('ASV', 698.0, 41, 1),
+    #     Robot('AGV', 698.0, 41, 1)
+    # ]
     search_keys = [['ASV', 'AGV'], None, None, [1]]
 
     print(linear_search(test.frame, search_keys))
