@@ -1,22 +1,37 @@
-def max_heapify(robots: list, i):
-    left = i*2
-    right = i*2 + 1 
+from robots import Table, Robot
 
-    if left <= len(robots) and getattr(robots[left], "price") > getattr(robots[i], "price"):
+
+def heapify(arr: list[Robot], n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    if left < n and getattr(arr[i], "price") < getattr(arr[left], "price"):
         largest = left
-    else:
-        largest = i
-    if right <= len(robots) and getattr(robots[right], "price") > getattr(robots[largest], "price"):
+
+    if right < n and getattr(arr[largest], "price") < getattr(arr[right], "price"):
         largest = right
+
     if largest != i:
-        temp = robots[i]
-        robots[i] = robots[largest]
-        robots[largest] = temp
-        del temp
-        max_heapify(robots, largest)
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
 
-def build_max_heap(robots: list):
-    n = len(robots)
 
-    for i in range(0, len(robots//2 - 1), -1):
-        max_heapify(robots, i)
+def heapSort(table: Table):
+    arr = table.frame
+    n = len(arr)
+
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+
+
+if __name__ == '__main__':
+    t = Table()
+    t.fill(5)
+    t.show()
+    heapSort(t)
+    t.show()
