@@ -22,7 +22,8 @@ class Robot:
         )
 
     def hash_me(self) -> int:
-        temp = str(self.type) + "/" + str(self.price) + "/" + str(self.robot_range) + "/" + str(self.camera)
+        temp = str(self.type) + "/" + str(self.price) + "/" \
+            + str(self.robot_range) + "/" + str(self.camera)
         hash = ""
         for i in temp:
             hash += str(ord(i))
