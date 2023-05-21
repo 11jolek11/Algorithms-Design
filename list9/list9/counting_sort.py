@@ -19,7 +19,7 @@ def counting_sort(arr, max_value):
     return output
 
 
-def counting_sort_robot(arr, max_value):
+def counting_sort_robot(arr, max_value=100):
     count = [0] * (max_value + 1)
     output = [0] * len(arr)
 
@@ -44,5 +44,5 @@ if __name__ == "__main__":
     t = Table()
     t.fill(5)
     t.show()
-    t.frame = counting_sort_robot(t.frame, 100)
+    t.frame = counting_sort_robot(t.frame)
     t.show()

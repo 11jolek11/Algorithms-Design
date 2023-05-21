@@ -17,8 +17,10 @@ def heapify(arr: list[Robot], n, i):
         heapify(arr, n, largest)
 
 
-def heapSort(table: Table):
-    arr = table.frame
+# def heapSort(table: Table):
+#     arr = table.frame
+
+def heapSort(arr: list[Robot]):
     n = len(arr)
 
     for i in range(n // 2 - 1, -1, -1):
@@ -33,5 +35,5 @@ if __name__ == '__main__':
     t = Table()
     t.fill(5)
     t.show()
-    heapSort(t)
+    heapSort(t.frame)
     t.show()

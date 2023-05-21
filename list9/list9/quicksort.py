@@ -41,10 +41,14 @@ def quickSort(arr: list[Robot], low, high):
         quickSort(arr, low, pi)
         quickSort(arr, pi + 1, high)
 
+def quicksort_wrapper(arr: list[Robot]):
+    quickSort(arr, 0, len(arr)-1)
+
 
 if __name__ == '__main__':
     t = Table()
     t.fill(5)
     t.show()
-    quickSort(t.frame, 0, 4)
+    # quickSort(t.frame, 0, 4)
+    quicksort_wrapper(t.frame)
     t.show()
