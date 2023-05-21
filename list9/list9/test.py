@@ -1,32 +1,39 @@
-def heapify(arr, n, i):
-    largest = i
-    left = 2 * i + 1
-    right = 2 * i + 2
-
-    if left < n and arr[i] < arr[left]:
-        largest = left
-
-    if right < n and arr[largest] < arr[right]:
-        largest = right
-
-    if largest != i:
-        arr[i], arr[largest] = arr[largest], arr[i]
-        heapify(arr, n, largest)
-
-
-def heapSort(arr):
+def counting_sort(arr, col_index):
     n = len(arr)
+    
+    # Find the maximum value in the specified column
+    max_val = max(row[col_index] for row in arr)
+    
+    # Initialize count array
+    count = [0] * (max_val + 1)
+    
+    # Count the occurrences of each element in the column
+    for row in arr:
+        count[row[col_index]] += 1
+    
+    # Calculate the cumulative count array
+    for i in range(1, len(count)):
+        count[i] += count[i - 1]
+    
+    # Initialize the sorted array
+    sorted_arr = [[0] * len(arr[0]) for _ in range(n)]
+    
+    # Build the sorted array by iterating in reverse order
+    for i in range(n - 1, -1, -1):
+        value = arr[i][col_index]
+        count[value] -= 1
+        sorted_arr[count[value]] = arr[i]
+    
+    return sorted_arr
 
-    for i in range(n // 2 - 1, -1, -1):
-        heapify(arr, n, i)
+if __name__ == "__main__":
+    array = [[4, 2, 9],
+         [1, 5, 6],
+         [3, 2, 0],
+         [2, 1, 3]]
 
-    for i in range(n - 1, 0, -1):
-        arr[i], arr[0] = arr[0], arr[i]
-        heapify(arr, i, 0)
+    sorted_array = counting_sort(array, 0)  # Sort by the second column
 
+    for row in sorted_array:
+        print(row)
 
-# Example usage:
-arr = [28, 0, 94, 1, 34]
-heapSort(arr)
-print("Sorted array:")
-print(arr)
