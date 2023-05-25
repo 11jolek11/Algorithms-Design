@@ -10,6 +10,9 @@ from robots import Table, Robot
 
 def profile(target, data_size: int, data_form: str, table_gen: Table):
     if data_form == "matrix":
+        # data_a = [
+        #     [random.randint(0, 15) for _ in range(data_size)] for _ in range(data_size)
+        # ]
         data_a = [
             [random.randint(0, 15) for _ in range(data_size)] for _ in range(data_size)
         ]
@@ -40,7 +43,7 @@ def profile(target, data_size: int, data_form: str, table_gen: Table):
 #     # plt.plot(axis_tickets, results)
 #     plt.scatter(axis_tickets, results)
 #     plt.show()
-    # plt.savefig('task5_sctter.png')
+#     plt.savefig('task5_sctter.png')
 
 
 if __name__ == "__main__":
@@ -63,13 +66,23 @@ if __name__ == "__main__":
         results['radix_sort'].append(profile(radix_sort, n, data_form="matrix", table_gen=table))
     
     plt.scatter(axis_tick, results['quickSort'], label='quickSort', c="tab:orange")
+    plt.legend()
+    plt.show()
     plt.scatter(axis_tick, results['counting_sort_robot'], label='counting_sort_robot', c="tab:blue")
+    plt.legend()
+    plt.show()
     plt.scatter(axis_tick, results['heapSort'], label='heapSort', c="tab:red")
+    plt.legend()
+    plt.show()
     plt.scatter(axis_tick, results['radix_sort'], label='radix_sort', c="tab:green")
     plt.legend()
     plt.show()
 
-
-
-#    visualize(counting_sort_robot, 1, 1000)
-# counting_sort_robot
+    # fig, axes = plt.subplots(1, 4)
+    # fig.set_size_inches(18.5, 10.5)
+    # axes[0].scatter(axis_tick, results['quickSort'], label='quickSort', c="tab:orange")
+    # axes[1].scatter(axis_tick, results['counting_sort_robot'], label='counting_sort_robot', c="tab:blue")
+    # axes[2].scatter(axis_tick, results['heapSort'], label='heapSort', c="tab:red")
+    # axes[3].scatter(axis_tick, results['radix_sort'], label='radix_sort', c="tab:green")
+    # plt.legend()
+    # plt.show()

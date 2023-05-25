@@ -9,17 +9,16 @@ def partition(arr, low, high):
     i = low - 1
     j = high + 1
     while (True):
-        # Find leftmost element greater than
-        # or equal to pivot
+
+        # Najbardziej po lewej >= pivot
         i += 1
         while (getattr(arr[i], "price") < pivot):
             i += 1
-        # Find rightmost element smaller than
-        # or equal to pivot
+        # Najbardziej po prawej <= pivot
         j -= 1
         while (getattr(arr[j], "price") > pivot):
             j -= 1
-        # If two pointers met.
+        # Zetkniecie pointerow
         if (i >= j):
             return j
         arr[i], arr[j] = arr[j], arr[i]
@@ -33,8 +32,7 @@ def quickSort(arr: list[Robot], low, high):
     low --> Starting index,
     high --> Ending index '''
     if (low < high):
-        ''' pi is partitioning index, arr[p] is now
-        at right place '''
+        ''' pi is partitioning index, arr[p] OK'''
         pi = partition(arr, low, high)
         # Separately sort elements before
         # partition and after partition
