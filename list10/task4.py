@@ -11,38 +11,88 @@ class Graph:
         
         self.packing_ratio = packing_ratio
         self.no_of_vertexes = vertex_no
-        self.no_of_edges = (self.no_of_vertexes(self.no_of_vertexes-1)/2)*self.packing_ratio
+        self.no_of_edges = int((self.no_of_vertexes*(self.no_of_vertexes-1)/2)*self.packing_ratio)
 
         self.incidence_matrix = np.zeros((self.no_of_vertexes, self.no_of_edges))
         self.adjacency_matrix = np.zeros((self.no_of_vertexes, self.no_of_vertexes))
 
+    def generate_adjacency_matrix(self):
+        total_sum = self.no_of_edges
+        matrix = np.zeros((self.no_of_vertexes, self.no_of_vertexes), dtype=int)
+        while np.sum(matrix) != total_sum:
+            indices = np.random.choice(self.no_of_vertexes**2, total_sum, replace=False)
+            matrix.flat[indices] = 1
+        self.adjacency_matrix = matrix
 
-    def gen_adjacency_matrix(self):
-        for i in range(self.no_of_vertexes):
-            for j in range(i, self.no_of_vertexes):
-                if i == j:
-                    self.incidence_matrix[i][j] = np.random.choice([0, 1])  # Set diagonal elements randomly
-                else:
-                    self.incidence_matrix[i][j] = np.random.randint(2)  # Set upper triangular elements randomly
+    # def generate_adjacency_matrix(self, num_nodes, degree_of_filling):
+    #     max_edges = (num_nodes * (num_nodes - 1)) // 2
+    #     num_edges = int(max_edges * degree_of_filling)
+    #     edge_indices = random.sample(range(max_edges), num_edges)
+        
+    #     adjacency_matrix = [[0] * num_nodes for _ in range(num_nodes)]
+    #     count = 0
+        
+    #     for i in range(num_nodes):
+    #         for j in range(i+1, num_nodes):
+    #             if count in edge_indices:
+    #                 weight = random.randint(1, 10)
+    #                 adjacency_matrix[i][j] = weight
+    #                 adjacency_matrix[j][i] = weight
+    #             count += 1
+        
+    #     return adjacency_matrix
 
-        # Reflect the upper triangular self.incidence_matrix to the lower triangular part
-        for i in range(self.no_of_vertexes):
-            for j in range(i):
-                self.incidence_matrix[i][j] = self.incidence_matrix[j][i]
 
-        # Calculate the current sum of all elements
-        current_sum = np.sum(self.incidence_matrix)
+    # def gen_adjacency_matrix(self):
+    #     for i in range(self.no_of_vertexes):
+    #         for j in range(i, self.no_of_vertexes):
+    #             if i == j:
+    #                 self.incidence_matrix[i][j] = np.random.choice([0, 1])  # Set diagonal elements randomly
+    #             else:
+    #                 self.incidence_matrix[i][j] = np.random.randint(2)  # Set upper triangular elements randomly
 
-        # Adjust the sum to match the desired total_sum
-        diff = self.no_of_edges*2 - current_sum
-        if diff > 0:
-            # Add 1s randomly to reach the desired sum
-            indices = np.random.choice(np.where(self.incidence_matrix == 0), diff, replace=False)
-            self.incidence_matrix[indices] = 1
-        elif diff < 0:
+    #     # Reflect the upper triangular self.incidence_matrix to the lower triangular part
+    #     for i in range(self.no_of_vertexes):
+    #         for j in range(i):
+    #             self.incidence_matrix[i][j] = self.incidence_matrix[j][i]
+
+    #     # Calculate the current sum of all elements
+    #     current_sum = np.sum(self.incidence_matrix)
+
+    #     # Adjust the sum to match the desired total_sum
+    #     diff = int(self.no_of_edges*2 - current_sum)
+    #     if diff > 0:
+    #         # Add 1s randomly to reach the desired sum
+    #         # indices = []
+    #         # for _ in range(diff):
+    #         #     indices.append(random.choice(np.where(self.incidence_matrix == 0)))
+    #         # self.incidence_matrix[indices] = 1
+
+
+    #         # indices = np.random.choice(np.where(self.incidence_matrix == 0), diff, replace=False)
+    #         # self.incidence_matrix[indices] = 1
+    #         indices = np.argwhere(self.incidence_matrix == 0)
+    #         indices_to_change = random.sample(list(indices), diff)
+    #         for item in indices_to_change:
+    #             self.incidence_matrix[item] = 1
+            
+
+
+
+        # elif diff < 0:
+            # indices = np.argwhere(self.incidence_matrix == 1)
+            # indices_to_change = random.sample(list(indices), diff)
+            # self.incidence_matrix[indices_to_change] = 0
             # Remove 1s randomly to reach the desired sum
-            indices = np.random.choice(np.where(self.incidence_matrix == 1), -diff, replace=False)
-            self.incidence_matrix[indices] = 0
+            # indices = np.random.choice(np.where(self.incidence_matrix == 1), -diff, replace=False)
+
+            # indices = random.choice(np.where(self.incidence_matrix == 1))
+            # self.incidence_matrix[indices] = 0
+
+            # indices = []
+            # for _ in range(diff):
+            #     indices.append(random.choice(np.where(self.incidence_matrix == 0)))
+            # self.incidence_matrix[indices] = 0
 
     # def gen_incidence_matrix(self):
     #     total_sum = self.no_of_edges*2
@@ -78,3 +128,13 @@ class Graph:
                     incidence_matrix[i, edge_count] = 1
                     incidence_matrix[j, edge_count] = -1
                     edge_count += 1
+
+
+if __name__ == "__main__":
+    p = Graph(5, 0.7)
+    p.generate_adjacency_matrix()
+    print(p.adjacency_matrix)
+    print(np.sum(p.adjacency_matrix))
+    print((10*(10-1)//2)*0.7)
+    p.gen_incidence_matrix()
+    print(p.incidence_matrix)
