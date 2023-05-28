@@ -61,3 +61,4 @@ if __name__ == "__main__":
 
     components = connected_components(graph)
     print(components)
+ 
