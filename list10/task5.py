@@ -17,7 +17,7 @@ class DisjointSet:
         root_y = self.find(y)
 
         if root_x == root_y:
-            return
+            return None
 
         if self.rank[root_x] < self.rank[root_y]:
             self.parent[root_x] = root_y
@@ -48,9 +48,8 @@ def connected_components(graph):
 
 
 if __name__ == "__main__":
-    import networkx as nx
-    import matplotlib.pyplot as plt
-    # Example graph represented as an adjacency matrix
+    # Macierz sąsiedztwa
+    # Graf niespójny
     graph = np.asarray([
         [1, 1, 0, 0, 0],
         [1, 1, 0, 0, 0],
@@ -59,6 +58,16 @@ if __name__ == "__main__":
         [0, 0, 0, 1, 1]
     ])
 
+    # Graf spójny
+    # graph = np.asarray(
+    #     [
+    #         [0, 1, 0, 0, 0],
+    #         [1, 0, 0, 0, 1],
+    #         [0, 0, 0, 1, 1], 
+    #         [0, 0, 1, 0, 1], 
+    #         [0, 1, 1, 1, 0]
+    #     ])
+
+
     components = connected_components(graph)
     print(components)
- 

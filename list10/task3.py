@@ -23,13 +23,15 @@ class LinkedList:
 
         self.nodes.append(new_node)
 
-    def delete(self, key):
+
+    def delete(self, key, attr: str):
+        # FIXME: usuwanie ze środka nie działa poprawnie wycina wszystko
         current_index = self.head
 
         while current_index is not None:
             current_node = self.nodes[current_index]
 
-            if current_node[1] == key:
+            if getattr(current_node[1], attr) == key:
                 prev_index = current_node[0]
                 next_index = current_node[2]
 
@@ -47,14 +49,14 @@ class LinkedList:
 
             current_index = current_node[2]
 
-    def search(self, key):
+    def search(self, key, attr):
         current_index = self.head
 
         while current_index is not None:
             current_node = self.nodes[current_index]
 
-            if current_node[1] == key:
-                return current_node
+            if getattr(current_node[1], attr) == key:
+                return current_node[1]
 
             current_index = current_node[2]
 
@@ -70,11 +72,12 @@ class LinkedList:
 
         print()
 
-    def merge_sort(self):
-        self.head = self._merge_sort(self.head)
+    def merge_sort(self, attr: str="price"):
+        # TODO: sortowanie wzgledem ceny
+        self.head = self._merge_sort(self.head, attr)
         self._update_tail()
 
-    def _merge_sort(self, head):
+    def _merge_sort(self, head, attr):
         if head is None or self.nodes[head][2] is None:
             return head
 
@@ -86,11 +89,11 @@ class LinkedList:
         self.nodes[middle][2] = None
 
         # Perform merge sort 
-        left = self._merge_sort(head)
-        right = self._merge_sort(next_to_middle)
+        left = self._merge_sort(head, attr)
+        right = self._merge_sort(next_to_middle, attr)
 
         # Merge the two sorted halves
-        return self._merge(left, right)
+        return self._merge(left, right, attr)
 
     def _get_middle(self, head):
         slow = head
@@ -103,18 +106,18 @@ class LinkedList:
 
         return slow
 
-    def _merge(self, left, right):
+    def _merge(self, left, right, attr):
         if left is None:
             return right
         if right is None:
             return left
 
-        if self.nodes[left][1] <= self.nodes[right][1]:
+        if getattr(self.nodes[left][1], attr) <= getattr(self.nodes[right][1], attr):
             result = left
-            self.nodes[result][2] = self._merge(self.nodes[left][2], right)
+            self.nodes[result][2] = self._merge(self.nodes[left][2], right, attr)
         else:
             result = right
-            self.nodes[result][2] = self._merge(left, self.nodes[right][2])
+            self.nodes[result][2] = self._merge(left, self.nodes[right][2], attr)
 
         self.nodes[result][0] = None
 
@@ -134,20 +137,30 @@ class LinkedList:
 
 
 if __name__ == "__main__":
-    # Example usage:
     my_list = LinkedList()
 
-    my_list.insert(5)
-    my_list.insert(10)
-    my_list.insert(15)
-    my_list.insert(20)
+    my_list.insert(RobotCreator.create())
+    my_list.insert(RobotCreator.create())
+    my_list.insert(RobotCreator.create())
+    my_list.insert(RobotCreator.create())
 
     my_list.display()
-
-    # my_list.delete(10)
-    # my_list.delete(15)
-
-    my_list.display() 
 
     my_list.merge_sort()
     my_list.display()
+
+    my_list.nodes[0][1].robot_range = 88
+
+    print("########################################")
+    my_list.display()
+    print(my_list.search(88, "robot_range"))
+    print("########################################")
+    my_list.nodes[1][1].price = 1000.0
+    my_list.display()
+    my_list.delete(1000.0, "price")
+    my_list.display()
+
+
+    # my_list.delete(10)
+    # my_list.delete(15)
+    # my_list.display()

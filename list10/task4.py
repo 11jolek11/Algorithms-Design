@@ -16,13 +16,32 @@ class Graph:
         self.incidence_matrix = np.zeros((self.no_of_vertexes, self.no_of_edges))
         self.adjacency_matrix = np.zeros((self.no_of_vertexes, self.no_of_vertexes))
 
+    # def generate_adjacency_matrix(self):
+    #     # FIXME:
+    #     total_sum = self.no_of_edges
+    #     matrix = np.zeros((self.no_of_vertexes, self.no_of_vertexes), dtype=int)
+    #     while np.sum(matrix) != total_sum:
+    #         # FIXME: może przeskoczyć total_sum
+    #         indices = np.random.choice(self.no_of_vertexes**2, total_sum, replace=False)
+    #         # print(indices)
+    #         matrix.flat[indices] = 1
+    #         matrix = (matrix + matrix.T)//2
+    #     self.adjacency_matrix = matrix
+
     def generate_adjacency_matrix(self):
-        total_sum = self.no_of_edges
-        matrix = np.zeros((self.no_of_vertexes, self.no_of_vertexes), dtype=int)
-        while np.sum(matrix) != total_sum:
-            indices = np.random.choice(self.no_of_vertexes**2, total_sum, replace=False)
-            matrix.flat[indices] = 1
-            matrix = (matrix + matrix.T)//2
+        count = self.no_of_edges
+        matrix = np.zeros((self.no_of_vertexes, self.no_of_vertexes))
+        avaible_indexes = [i for i in range(self.no_of_vertexes**2)]
+        random.shuffle(avaible_indexes)
+        test = []
+        while count > 0:
+            # test.append(count)
+            index = avaible_indexes.pop(0)
+            matrix.flat[index] = 1
+            test.append(index)
+            count -= 1
+        matrix = np.ceil((matrix + matrix.T)/2)
+        matrix = matrix.astype(int)
         self.adjacency_matrix = matrix
 
     def gen_incidence_matrix(self):
@@ -76,7 +95,7 @@ if __name__ == "__main__":
     p = Graph(5, 0.5)
     p.generate_adjacency_matrix()
     print(p.adjacency_matrix)
-    print(np.sum(p.adjacency_matrix))
-    print((10*(10-1)//2)*0.7)
+    print(p.no_of_vertexes)
+    # print((10*(10-1)//2)*0.7)
     p.gen_incidence_matrix()
     print(p.incidence_matrix)
