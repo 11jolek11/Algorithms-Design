@@ -1,4 +1,5 @@
 from robots import RobotCreator
+import numpy as np
 
 
 class LinkedList:
@@ -45,7 +46,9 @@ class LinkedList:
                 else:
                     self.tail = prev_index
 
-                self.nodes[current_index] = [None, None, None]  # <-- empty node
+                # self.nodes[current_index] = [None, None, None]  # <-- empty node
+                self.nodes[current_index] = [-1, -1, -1]  # <-- empty node
+                # del self.nodes[current_index]
 
             current_index = current_node[2]
 
@@ -62,18 +65,18 @@ class LinkedList:
 
         return None
 
-    def display(self):
-        current_index = self.head
+    # def display(self):
+    #     current_index = self.head
 
-        while current_index is not None:
-            current_node = self.nodes[current_index]
-            print(current_node[1], end="---")
-            current_index = current_node[2]
+    #     while current_index is not None:
+    #         current_node = self.nodes[current_index]
+    #         print(current_node[1], end="---")
+    #         current_index = current_node[0]
 
-        print()
+    #     print()
 
     def merge_sort(self, attr: str="price"):
-        # TODO: sortowanie wzgledem ceny
+        # TODO: sortowanie wzgledem ceny <== DONE
         self.head = self._merge_sort(self.head, attr)
         self._update_tail()
 
@@ -81,18 +84,16 @@ class LinkedList:
         if head is None or self.nodes[head][2] is None:
             return head
 
-        # Find the middle
         middle = self._get_middle(head)
 
-        # Split the linked array
+        # split
         next_to_middle = self.nodes[middle][2]
         self.nodes[middle][2] = None
-
-        # Perform merge sort 
+ 
         left = self._merge_sort(head, attr)
         right = self._merge_sort(next_to_middle, attr)
 
-        # Merge the two sorted halves
+        # Merge
         return self._merge(left, right, attr)
 
     def _get_middle(self, head):
@@ -140,27 +141,33 @@ if __name__ == "__main__":
     my_list = LinkedList()
 
     my_list.insert(RobotCreator.create())
+    # print(my_list.nodes)
     my_list.insert(RobotCreator.create())
+    # print(my_list.nodes)
     my_list.insert(RobotCreator.create())
+    # print(my_list.nodes)
     my_list.insert(RobotCreator.create())
 
-    my_list.display()
+    # my_list.display()
 
-    my_list.merge_sort()
-    my_list.display()
+    # my_list.merge_sort()
+    # my_list.display()
 
     my_list.nodes[0][1].robot_range = 88
 
-    print("########################################")
-    my_list.display()
-    print(my_list.search(88, "robot_range"))
-    print("########################################")
+    # print("########################################")
+    # # my_list.display()
+    # print(np.asarray(my_list.nodes))
+    # print(my_list.search(88, "robot_range"))
+    # print("########################################")
+
+
     my_list.nodes[1][1].price = 1000.0
-    my_list.display()
-    my_list.delete(1000.0, "price")
-    my_list.display()
-
-
-    # my_list.delete(10)
-    # my_list.delete(15)
+    # print("---------------------------------------------")
+    print(np.asarray(my_list.nodes))
+    print("---------------------------------------------")
     # my_list.display()
+    my_list.delete(1000.0, "price")
+    print(np.asarray(my_list.nodes))
+    # my_list.display()
+
