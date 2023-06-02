@@ -4,6 +4,7 @@ import numpy as np
 
 class DisjointSet:
     def __init__(self, n):
+        # make set
         self.parent = [i for i in range(n)]
         self.rank = [0] * n
 
@@ -27,9 +28,16 @@ class DisjointSet:
             self.parent[root_y] = root_x
             self.rank[root_x] += 1
 
+    # def make_set(self, x):
+    #     if x not in self.parent:
+    #         self.parent[x] = x
+    #         self.rank[x] = 0
+
+
 
 def connected_components(graph):
     num_vertices = len(graph)
+    # num_vertices = graph.shape[0]
     ds = DisjointSet(num_vertices)
 
     for i in range(num_vertices):
@@ -48,6 +56,12 @@ def connected_components(graph):
 
 
 if __name__ == "__main__":
+    from task4 import Graph
+
+    p = Graph(100, 0.01)
+    p.generate_adjacency_matrix()
+    dfrgg = p.adjacency_matrix
+
     # Macierz sąsiedztwa
     # Graf niespójny
     graph = np.asarray([
@@ -69,5 +83,6 @@ if __name__ == "__main__":
     #     ])
 
 
-    components = connected_components(graph)
+    components = connected_components(dfrgg)
     print(components)
+    print(len(components))

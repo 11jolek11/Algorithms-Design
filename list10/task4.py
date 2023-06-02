@@ -30,6 +30,7 @@ class Graph:
 
     def generate_adjacency_matrix(self):
         count = self.no_of_edges
+        # count = self.no_of_vertexes
         matrix = np.zeros((self.no_of_vertexes, self.no_of_vertexes))
         avaible_indexes = [i for i in range(self.no_of_vertexes**2)]
         random.shuffle(avaible_indexes)
@@ -93,9 +94,12 @@ class Graph:
 
 if __name__ == "__main__":
     p = Graph(5, 0.5)
+    # p = Graph(100, 0.01)
+    # p = Graph(400, 1)
     p.generate_adjacency_matrix()
     print(p.adjacency_matrix)
     print(p.no_of_vertexes)
+    print(p.no_of_edges)
     # print((10*(10-1)//2)*0.7)
     p.gen_incidence_matrix()
     print(p.incidence_matrix)
