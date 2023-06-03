@@ -1,6 +1,5 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-# from networkx.drawing.nx_pydot import graphviz_layout
 from networkx.drawing.nx_agraph import graphviz_layout
 
 
@@ -148,21 +147,18 @@ class BST:
 
         return node
     
-    @classmethod
-    def save(cls, root: Node, file_path: str):
-        # TODO: awaiting implementation. Zapis jak do tablicy 1D
-        with open(file_path) as file:
-            pass
+    def save(self, file_path: str):
+        content = list(map(str, self.preorder_traversal()))
+        with open(file_path, "w") as file:
+            for node in content:
+                file.write(f'{node}\n')
 
-    @classmethod
-    def load(cls, file_path: str):
+    def load(self, file_path: str):
         #TODO: awaiting implementation.
         with open(file_path) as file:
-            pass
+            for node in file:
+                self.insert(int(node))
     
-    # @staticmethod
-    # def plot_binary_tree(root):
-    # @classmethod
     def plot_binary_tree(self):
         G = nx.Graph()
 
@@ -231,12 +227,16 @@ if __name__ == "__main__":
     # tree.rotate_right(5)
     # tree.plot_binary_tree()
 
+    path = "graph_test.txt"
+
     tree.generate([50, 70, 60, 20, 90, 10, 40, 100])
     print(tree.postorder_traversal())
     print(tree.preorder_traversal())
     print(tree.inorder_traversal())
+    print("###############")
+    tree.save(path)
     tree2 = BST()
-
-    # tree.plot_binary_tree()
-
-    pass
+    tree2.load(path)
+    print(tree2.postorder_traversal())
+    print(tree2.preorder_traversal())
+    print(tree2.inorder_traversal())
