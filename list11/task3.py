@@ -1,5 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+# from networkx.drawing.nx_pydot import graphviz_layout
+from networkx.drawing.nx_agraph import graphviz_layout
 
 
 class Node:
@@ -23,12 +25,11 @@ class BST:
             node.left = self._insert_helper(node.left, key)
         elif key > node.key:
             node.right = self._insert_helper(node.right, key)
-
         return node
     
     def generate(self, input: list):
         for element in input:
-            self.insert(self.root, element)
+            self.insert(element)
 
     def search(self, key):
         return self._search_helper(self.root, key)
@@ -159,24 +160,83 @@ class BST:
         with open(file_path) as file:
             pass
     
-    @staticmethod
-    def plot_binary_tree(root):
+    # @staticmethod
+    # def plot_binary_tree(root):
+    # @classmethod
+    def plot_binary_tree(self):
         G = nx.Graph()
 
         def add_edges(node, parent=None):
             if node:
                 # TODO: Add node can take any hashable python object so you can add Node objects instead of value
-                G.add_node(node.value)
+                G.add_node(node.key)
                 if parent:
-                    G.add_edge(parent.value, node.value)
+                    G.add_edge(parent.key, node.key)
                 add_edges(node.left, node)
                 add_edges(node.right, node)
 
-        add_edges(root)
+        add_edges(self.root)
 
-        pos = nx.spring_layout(G)
+        # pos = nx.spring_layout(G)
+        pos = nx.spectral_layout(G)
         plt.figure(figsize=(8, 6))
         nx.draw(G, pos, with_labels=True, node_size=1500, node_color="lightblue", font_size=12, font_weight="bold",
                 width=2, edge_color="gray")
         plt.axis("off")
         plt.show()
+
+
+if __name__ == "__main__":
+    tree = BST()
+
+    # tree.generate([8, 3, 10, 1, 6, 14, 13, 4, 7])
+    # tree.plot_binary_tree()
+
+    # tree.insert(8)
+    # tree.insert(3)
+    # tree.insert(10)
+    # tree.insert(1)
+    # tree.insert(6)
+    # tree.insert(14)
+    # tree.insert(13)
+    # tree.insert(4)
+    # tree.insert(7)
+    # tree.plot_binary_tree()
+
+    # print(tree.search(14).left.key)
+    # tree.plot_binary_tree()
+    # tree.delete(7)
+    # tree.plot_binary_tree()
+    # tree.insert(7)
+    # tree.delete(6)
+    # tree.plot_binary_tree()
+    # tree.delete(8)
+    # tree.plot_binary_tree()
+    # print(tree.inorder_traversal())
+    # print(tree.preorder_traversal())
+    # print(tree.postorder_traversal())
+
+    # tree.generate([5, 3, 7, 2, 4, 8])
+    # tree.plot_binary_tree()
+    # tree.rotate_left(5)
+    # tree.plot_binary_tree()
+
+    # tree.generate([20, 2, 3, 6, 5, 12, 9])
+    # tree.plot_binary_tree()
+    # tree.rotate_left(5)
+    # tree.plot_binary_tree()
+
+    # tree.generate([20, 2, 3, 6, 5, 12, 9])
+    # tree.plot_binary_tree()
+    # tree.rotate_right(5)
+    # tree.plot_binary_tree()
+
+    tree.generate([50, 70, 60, 20, 90, 10, 40, 100])
+    print(tree.postorder_traversal())
+    print(tree.preorder_traversal())
+    print(tree.inorder_traversal())
+    tree2 = BST()
+
+    # tree.plot_binary_tree()
+
+    pass
