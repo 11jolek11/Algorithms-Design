@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 from networkx.drawing.nx_agraph import graphviz_layout
+from robots import Robot, RobotCreator
 
 
 class Node:
@@ -10,8 +11,9 @@ class Node:
         self.right = None
 
 class BST:
-    def __init__(self):
+    def __init__(self, attr):
         self.root = None
+        self.attr = attr
 
     def insert(self, key):
         self.root = self._insert_helper(self.root, key)
@@ -20,9 +22,9 @@ class BST:
         if node is None:
             return Node(key)
 
-        if key < node.key:
+        if getattr(key, self.attr) < getattr(node.key, self.attr):
             node.left = self._insert_helper(node.left, key)
-        elif key > node.key:
+        elif getattr(key, self.attr) > getattr(node.key, self.attr):
             node.right = self._insert_helper(node.right, key)
         return node
     
@@ -34,10 +36,10 @@ class BST:
         return self._search_helper(self.root, key)
 
     def _search_helper(self, node, key):
-        if node is None or node.key == key:
+        if node is None or getattr(node.key, self.attr) == key:
             return node
 
-        if key < node.key:
+        if key < getattr(node.key, self.attr):
             return self._search_helper(node.left, key)
         else:
             return self._search_helper(node.right, key)
@@ -49,9 +51,9 @@ class BST:
         if node is None:
             return node
 
-        if key < node.key:
+        if getattr(key, self.attr) < getattr(node.key, self.attr):
             node.left = self._delete_helper(node.left, key)
-        elif key > node.key:
+        elif getattr(key, self.attr) > getattr(node.key, self.attr):
             node.right = self._delete_helper(node.right, key)
         else:
             if node.left is None:
@@ -112,9 +114,9 @@ class BST:
         if node is None:
             return node
 
-        if key < node.key:
+        if getattr(key, self.attr) < getattr(node.key, self.attr):
             node.left = self._rotate_right_helper(node.left, key)
-        elif key > node.key:
+        elif getattr(key, self.attr) > getattr(node.key, self.attr):
             node.right = self._rotate_right_helper(node.right, key)
         else:
             if node.left is None:
@@ -133,9 +135,9 @@ class BST:
         if node is None:
             return node
 
-        if key < node.key:
+        if getattr(key, self.attr) < getattr(node.key, self.attr):
             node.left = self._rotate_left_helper(node.left, key)
-        elif key > node.key:
+        elif getattr(key, self.attr) > getattr(node.key, self.attr):
             node.right = self._rotate_left_helper(node.right, key)
         else:
             if node.right is None:
@@ -165,9 +167,9 @@ class BST:
         def add_edges(node, parent=None):
             if node:
                 # TODO: Add node can take any hashable python object so you can add Node objects instead of value
-                G.add_node(node.key)
+                G.add_node(getattr(node.key, self.attr))
                 if parent:
-                    G.add_edge(parent.key, node.key)
+                    G.add_edge(getattr(parent.key, self.attr), getattr(node.key, self.attr))
                 add_edges(node.left, node)
                 add_edges(node.right, node)
 
@@ -183,7 +185,16 @@ class BST:
 
 
 if __name__ == "__main__":
-    tree = BST()
+    tree = BST("robot_range")
+    temp = []
+    for i in range(3):
+        r = RobotCreator.create()
+        r.robot_range = i*10
+        temp.append(r)
+        print(str(r))
+    tree.generate(temp)
+    # tree.plot_binary_tree()
+
 
     # tree.generate([8, 3, 10, 1, 6, 14, 13, 4, 7])
     # tree.plot_binary_tree()
@@ -199,9 +210,9 @@ if __name__ == "__main__":
     # tree.insert(7)
     # tree.plot_binary_tree()
 
-    # print(tree.search(14).left.key)
+    print(tree.search(0).left.key)
     # tree.plot_binary_tree()
-    # tree.delete(7)
+    tree.delete(0)
     # tree.plot_binary_tree()
     # tree.insert(7)
     # tree.delete(6)
@@ -227,16 +238,16 @@ if __name__ == "__main__":
     # tree.rotate_right(5)
     # tree.plot_binary_tree()
 
-    path = "graph_test.txt"
+    # path = "graph_test.txt"
 
-    tree.generate([50, 70, 60, 20, 90, 10, 40, 100])
-    print(tree.postorder_traversal())
-    print(tree.preorder_traversal())
-    print(tree.inorder_traversal())
-    print("###############")
-    tree.save(path)
-    tree2 = BST()
-    tree2.load(path)
-    print(tree2.postorder_traversal())
-    print(tree2.preorder_traversal())
-    print(tree2.inorder_traversal())
+    # tree.generate([50, 70, 60, 20, 90, 10, 40, 100])
+    # print(tree.postorder_traversal())
+    # print(tree.preorder_traversal())
+    # print(tree.inorder_traversal())
+    # print("###############")
+    # tree.save(path)
+    # tree2 = BST()
+    # tree2.load(path)
+    # print(tree2.postorder_traversal())
+    # print(tree2.preorder_traversal())
+    # print(tree2.inorder_traversal())
