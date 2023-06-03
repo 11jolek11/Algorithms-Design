@@ -51,9 +51,9 @@ class BST:
         if node is None:
             return node
 
-        if getattr(key, self.attr) < getattr(node.key, self.attr):
+        if key < getattr(node.key, self.attr):
             node.left = self._delete_helper(node.left, key)
-        elif getattr(key, self.attr) > getattr(node.key, self.attr):
+        elif key > getattr(node.key, self.attr):
             node.right = self._delete_helper(node.right, key)
         else:
             if node.left is None:
@@ -114,9 +114,9 @@ class BST:
         if node is None:
             return node
 
-        if getattr(key, self.attr) < getattr(node.key, self.attr):
+        if key < getattr(node.key, self.attr):
             node.left = self._rotate_right_helper(node.left, key)
-        elif getattr(key, self.attr) > getattr(node.key, self.attr):
+        elif key > getattr(node.key, self.attr):
             node.right = self._rotate_right_helper(node.right, key)
         else:
             if node.left is None:
@@ -135,9 +135,9 @@ class BST:
         if node is None:
             return node
 
-        if getattr(key, self.attr) < getattr(node.key, self.attr):
+        if key < getattr(node.key, self.attr):
             node.left = self._rotate_left_helper(node.left, key)
-        elif getattr(key, self.attr) > getattr(node.key, self.attr):
+        elif key > getattr(node.key, self.attr):
             node.right = self._rotate_left_helper(node.right, key)
         else:
             if node.right is None:
@@ -193,7 +193,7 @@ if __name__ == "__main__":
         temp.append(r)
         print(str(r))
     tree.generate(temp)
-    # tree.plot_binary_tree()
+    tree.plot_binary_tree()
 
 
     # tree.generate([8, 3, 10, 1, 6, 14, 13, 4, 7])
@@ -210,10 +210,10 @@ if __name__ == "__main__":
     # tree.insert(7)
     # tree.plot_binary_tree()
 
-    print(tree.search(0).left.key)
+    print(tree.search(0).key)
     # tree.plot_binary_tree()
     tree.delete(0)
-    # tree.plot_binary_tree()
+    tree.plot_binary_tree()
     # tree.insert(7)
     # tree.delete(6)
     # tree.plot_binary_tree()
