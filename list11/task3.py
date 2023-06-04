@@ -81,6 +81,7 @@ class BST:
 
     def _inorder_helper(self, node, result):
         if node is not None:
+            self.plot_binary_tree(color_node=node)
             self._inorder_helper(node.left, result)
             result.append(node.key)
             self._inorder_helper(node.right, result)
@@ -161,11 +162,18 @@ class BST:
             for node in file:
                 self.insert(int(node))
     
-    def plot_binary_tree(self):
+    # def plot_binary_tree(self, color_node=Robot("g", -1.0, -1, -1)):
+    def plot_binary_tree(self, color_node=None):
         G = nx.Graph()
+        color_map = []
+        # color_map = ['red' if node == color_node else 'lightblue' for node in G]
 
         def add_edges(node, parent=None):
             if node:
+                if node == color_node:
+                    color_map.append("red")
+                else:
+                    color_map.append("lightblue")
                 # TODO: Add node can take any hashable python object so you can add Node objects instead of value
                 G.add_node(getattr(node.key, self.attr))
                 if parent:
@@ -178,7 +186,7 @@ class BST:
         # pos = nx.spring_layout(G)
         pos = nx.spectral_layout(G)
         plt.figure(figsize=(8, 6))
-        nx.draw(G, pos, with_labels=True, node_size=1500, node_color="lightblue", font_size=12, font_weight="bold",
+        nx.draw(G, pos, with_labels=True, node_size=1500, node_color=color_map, font_size=12, font_weight="bold",
                 width=2, edge_color="gray")
         plt.axis("off")
         plt.show()
@@ -187,9 +195,11 @@ class BST:
 if __name__ == "__main__":
     tree = BST("robot_range")
     temp = []
-    for i in range(3):
+    wzor = [5, 7, 3, 4, 2, 1]
+    for i in range(len(wzor)):
         r = RobotCreator.create()
-        r.robot_range = i*10
+        # r.robot_range = i*10
+        r.robot_range = wzor[i]
         temp.append(r)
         print(str(r))
     tree.generate(temp)
@@ -210,16 +220,16 @@ if __name__ == "__main__":
     # tree.insert(7)
     # tree.plot_binary_tree()
 
-    print(tree.search(0).key)
+    # print(tree.search(0).key)
     # tree.plot_binary_tree()
-    tree.delete(0)
-    tree.plot_binary_tree()
+    # tree.delete(0)
+    # tree.plot_binary_tree()
     # tree.insert(7)
     # tree.delete(6)
     # tree.plot_binary_tree()
     # tree.delete(8)
     # tree.plot_binary_tree()
-    # print(tree.inorder_traversal())
+    print(tree.inorder_traversal())
     # print(tree.preorder_traversal())
     # print(tree.postorder_traversal())
 
