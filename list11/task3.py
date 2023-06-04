@@ -81,10 +81,11 @@ class BST:
 
     def _inorder_helper(self, node, result):
         if node is not None:
-            self.plot_binary_tree(color_node=node)
+            # self.plot_binary_tree(color_node=node)
             self._inorder_helper(node.left, result)
             result.append(node.key)
             self._inorder_helper(node.right, result)
+            self.plot_binary_tree(color_node=node)
 
     def preorder_traversal(self):
         result = []
@@ -94,8 +95,10 @@ class BST:
     def _preorder_helper(self, node, result):
         if node is not None:
             result.append(node.key)
+            # self.plot_binary_tree(color_node=node)
             self._preorder_helper(node.left, result)
             self._preorder_helper(node.right, result)
+            self.plot_binary_tree(color_node=node)
 
     def postorder_traversal(self):
         result = []
@@ -104,9 +107,11 @@ class BST:
 
     def _postorder_helper(self, node, result):
         if node is not None:
+            # self.plot_binary_tree(color_node=node)
             self._postorder_helper(node.left, result)
             self._postorder_helper(node.right, result)
             result.append(node.key)
+            self.plot_binary_tree(color_node=node)
 
     def rotate_right(self, key):
         self.root = self._rotate_right_helper(self.root, key)
