@@ -84,8 +84,8 @@ class BST:
             # self.plot_binary_tree(color_node=node)
             self._inorder_helper(node.left, result)
             result.append(node.key)
-            self._inorder_helper(node.right, result)
             self.plot_binary_tree(color_node=node)
+            self._inorder_helper(node.right, result)
 
     def preorder_traversal(self):
         result = []
@@ -96,9 +96,9 @@ class BST:
         if node is not None:
             result.append(node.key)
             # self.plot_binary_tree(color_node=node)
+            self.plot_binary_tree(color_node=node)
             self._preorder_helper(node.left, result)
             self._preorder_helper(node.right, result)
-            self.plot_binary_tree(color_node=node)
 
     def postorder_traversal(self):
         result = []
@@ -208,7 +208,7 @@ if __name__ == "__main__":
         temp.append(r)
         print(str(r))
     tree.generate(temp)
-    tree.plot_binary_tree()
+    # tree.plot_binary_tree()
 
 
     # tree.generate([8, 3, 10, 1, 6, 14, 13, 4, 7])
