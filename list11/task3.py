@@ -162,7 +162,6 @@ class BST:
                 file.write(f'{node}\n')
 
     def load(self, file_path: str):
-        #TODO: awaiting implementation.
         with open(file_path) as file:
             for node in file:
                 self.insert(int(node))
@@ -179,7 +178,6 @@ class BST:
                     color_map.append("red")
                 else:
                     color_map.append("lightblue")
-                # TODO: Add node can take any hashable python object so you can add Node objects instead of value
                 G.add_node(getattr(node.key, self.attr))
                 if parent:
                     G.add_edge(getattr(parent.key, self.attr), getattr(node.key, self.attr))

@@ -9,36 +9,20 @@ class Node:
         self.right = None
 
 
+
 class BinaryTreeOperator:
-    @staticmethod
-    def create_binary_tree(data):
-        if not data:
-            return None
-
-        nodes = [Node(value) if value is not None else None for value in data]
-        root = nodes[0]
-        queue = [root]
-        i = 1
-
-        while i < len(nodes):
-            node = queue.pop(0)
-            if node:
-                node.left = nodes[i]
-                i += 1
-                if i < len(nodes):
-                    node.right = nodes[i]
-                    i += 1
-                queue.append(node.left)
-                queue.append(node.right)
-        return root
+    def __init__(self):
+        self.root = None
+        self.pos = []
+        self.operations = {}
     
     @staticmethod
     def plot_binary_tree(root):
+        # TODO: implement position adding
         G = nx.Graph()
 
         def add_edges(node, parent=None):
             if node:
-                # TODO: Add node can take any hashable python object so you can add Node objects instead of value
                 G.add_node(node.value)
                 if parent:
                     G.add_edge(parent.value, node.value)
@@ -54,8 +38,10 @@ class BinaryTreeOperator:
         plt.axis("off")
         plt.show()
     
-    @staticmethod
-    def add_node(root: Node, instrution: str, value: int):
+    def add_node(self, instrution: str, value: int):
+        if self.root is None:
+            self.root = Node(value)
+        root = self.root
         for move in instrution:
             if move == "L" and root.left is not None:
                 root = root.left
@@ -68,8 +54,8 @@ class BinaryTreeOperator:
                 print("add right child")
                 root.right = Node(value)
     
-    @staticmethod
-    def delete_node(root: Node, instrution: str):
+    def delete_node(self, instrution: str):
+        root = self.root
         current_root = root
         parent_root = None
         direction_flag = instrution[-1]
@@ -104,8 +90,20 @@ class BinaryTreeOperator:
 
 
 if __name__ == "__main__":
-    tree_data = [1, 2, 3, 4, None, 5, 6]
-    tree = BinaryTreeOperator.create_binary_tree(tree_data)
-    BinaryTreeOperator.plot_binary_tree(tree)
-    BinaryTreeOperator.add_node(tree, "LLL", 9)
-    BinaryTreeOperator.plot_binary_tree(tree)
+    tree = BinaryTreeOperator()
+    tree.add_node("", 7)
+    tree.add_node("L", 4)
+    tree.add_node("R", 9)
+    tree.add_node("LL", 2)
+    tree.add_node("LR", 5)
+    tree.add_node("RL", 8)
+    tree.plot_binary_tree(tree.root)
+    tree.delete_node("R")
+    tree.plot_binary_tree(tree.root)
+    # tree_data = [1, 2, 3, 4, 5, 6]
+    # tree_data = [7, 4 ,9 , 2, 5, 8]
+    # tree = BinaryTreeOperator.create_binary_tree(tree_data)
+    # BinaryTreeOperator.plot_binary_tree(tree)
+    # BinaryTreeOperator.add_node(tree, "LLL", 9)
+    # BinaryTreeOperator.plot_binary_tree(tree)
+
