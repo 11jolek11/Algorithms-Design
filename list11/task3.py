@@ -200,10 +200,10 @@ class BST:
 
             # Plot current node
             if node != color_node:
-                plt.text(x, y, str(node.key), fontsize=12, ha='center', va='center', 
+                plt.text(x, y, str(node.key), fontsize=4, ha='center', va='center', 
                         bbox=dict(facecolor='white', edgecolor='black', boxstyle='circle'))
             else:
-                plt.text(x, y, str(node.key), fontsize=12, ha='center', va='center', 
+                plt.text(x, y, str(node.key), fontsize=4, ha='center', va='center', 
                         bbox=dict(facecolor='red', edgecolor='black', boxstyle='circle'))
 
             # Plot left child
@@ -222,7 +222,7 @@ class BST:
 
         # Set up the figure and axes
         fig, ax = plt.subplots()
-        ax.set_aspect('equal')
+        # ax.set_aspect('equal')
         ax.axis('off')
 
         # Recursively plot the tree starting from the root
@@ -236,7 +236,8 @@ class BST:
 if __name__ == "__main__":
     tree = BST("robot_range")
     temp = []
-    wzor = [5, 7, 3, 4, 2, 1]
+    # wzor = [5, 7, 3, 4, 2, 1]
+    wzor = [10, 2, 35, 1, 9, 8, 39, 34 ,11, 15, 38, 13, 16, 9]
     for i in range(len(wzor)):
         r = RobotCreator.create()
         # r.robot_range = i*10
@@ -244,7 +245,9 @@ if __name__ == "__main__":
         temp.append(r)
         print(str(r))
     tree.generate(temp)
-    # tree.plot_binary_tree(tree.root)
+    # print("^^^^^")
+    # print(tree.search(2).key)
+    tree.plot_binary_tree(tree.root)
     # tree.plot_binary_tree()
 
 
@@ -273,7 +276,7 @@ if __name__ == "__main__":
     # tree.plot_binary_tree()
     # print(tree.inorder_traversal())
     # print(tree.preorder_traversal())
-    print(tree.postorder_traversal())
+    # print(tree.postorder_traversal())
 
     # tree.generate([5, 3, 7, 2, 4, 8])
     # tree.plot_binary_tree()

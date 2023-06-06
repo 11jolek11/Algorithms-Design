@@ -12,30 +12,30 @@ class Node:
 class BinaryTreeOperator:
     def __init__(self):
         self.root = None
-        self.pos = []
-        self.operations = {}
+        # self.pos = []
+        # self.operations = {}
     
-    @staticmethod
-    def plot_binary_tree(root):
-        # TODO: implement position adding
-        G = nx.Graph()
+    # @staticmethod
+    # def plot_binary_tree(root):
+    #     # TODO: implement position adding
+    #     G = nx.Graph()
 
-        def add_edges(node, parent=None):
-            if node:
-                G.add_node(node.value)
-                if parent:
-                    G.add_edge(parent.value, node.value)
-                add_edges(node.left, node)
-                add_edges(node.right, node)
+    #     def add_edges(node, parent=None):
+    #         if node:
+    #             G.add_node(node.value)
+    #             if parent:
+    #                 G.add_edge(parent.value, node.value)
+    #             add_edges(node.left, node)
+    #             add_edges(node.right, node)
 
-        add_edges(root)
+    #     add_edges(root)
 
-        pos = nx.spring_layout(G)
-        plt.figure(figsize=(8, 6))
-        nx.draw(G, pos, with_labels=True, node_size=1500, node_color="lightblue", font_size=12, font_weight="bold",
-                width=2, edge_color="gray")
-        plt.axis("off")
-        plt.show()
+    #     pos = nx.spring_layout(G)
+    #     plt.figure(figsize=(8, 6))
+    #     nx.draw(G, pos, with_labels=True, node_size=1500, node_color="lightblue", font_size=12, font_weight="bold",
+    #             width=2, edge_color="gray")
+    #     plt.axis("off")
+    #     plt.show()
     
     def save_binary_tree(self, root, file_path):
         def pre_order_traversal(node, file):
@@ -268,15 +268,79 @@ if __name__ == "__main__":
     # tree.add_node("LR", 5)
     # tree.add_node("RL", 8)
 
+    # tree.add_node("", 7)
+    # tree.add_node("L", 4)
+    # tree.add_node("R", 9)
+    # tree.add_node("LL", 2)
+    # tree.add_node("LLL", 5)
+    # tree.plot_binary_tree(tree.root)
+
+    
     tree.add_node("", 7)
     tree.add_node("L", 4)
-    tree.add_node("R", 9)
     tree.add_node("LL", 2)
-    tree.add_node("LLL", 5)
+    tree.add_node("LR", 45)
+    tree.add_node("LRL", 46)
+
+
+    tree.add_node("R", 9)
+    tree.add_node("RR", 10)
+    tree.add_node("RRL", 11)
+
+    tree.add_node("RL", 76)
+    tree.add_node("RLL", 76)
+    tree.add_node("RLLR", 76)
+    tree.add_node("RLLL", 76)
+    
     tree.plot_binary_tree(tree.root)
 
-    tree.save(tree.root, "tree.txt")
-    tree.load("tree.txt")
+    tree.delete_node("LRL")
+    tree.plot_binary_tree(tree.root)
+    tree.delete_node("LRL")
+    tree.plot_binary_tree(tree.root)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # tree.save(tree.root, "tree.txt")
+    # tree.load("tree.txt")
 
     # x = tree.create_memory_array(tree.root)
     # print(tree2.recreate_binary_tree(x).value)
