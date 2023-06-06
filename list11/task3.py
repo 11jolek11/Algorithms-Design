@@ -84,7 +84,7 @@ class BST:
             # self.plot_binary_tree(color_node=node)
             self._inorder_helper(node.left, result)
             result.append(node.key)
-            self.plot_binary_tree(color_node=node)
+            self.plot_binary_tree(self.root, color_node=node)
             self._inorder_helper(node.right, result)
 
     def preorder_traversal(self):
@@ -96,7 +96,7 @@ class BST:
         if node is not None:
             result.append(node.key)
             # self.plot_binary_tree(color_node=node)
-            self.plot_binary_tree(color_node=node)
+            self.plot_binary_tree(self.root, color_node=node)
             self._preorder_helper(node.left, result)
             self._preorder_helper(node.right, result)
 
@@ -111,7 +111,7 @@ class BST:
             self._postorder_helper(node.left, result)
             self._postorder_helper(node.right, result)
             result.append(node.key)
-            self.plot_binary_tree(color_node=node)
+            self.plot_binary_tree(self.root, color_node=node)
 
     def rotate_right(self, key):
         self.root = self._rotate_right_helper(self.root, key)
@@ -167,31 +167,69 @@ class BST:
                 self.insert(int(node))
     
     # def plot_binary_tree(self, color_node=Robot("g", -1.0, -1, -1)):
-    def plot_binary_tree(self, color_node=None):
-        G = nx.Graph()
-        color_map = []
-        # color_map = ['red' if node == color_node else 'lightblue' for node in G]
+    # def plot_binary_tree(self, color_node=None):
+    #     G = nx.Graph()
+    #     color_map = []
+    #     # color_map = ['red' if node == color_node else 'lightblue' for node in G]
 
-        def add_edges(node, parent=None):
-            if node:
-                if node == color_node:
-                    color_map.append("red")
-                else:
-                    color_map.append("lightblue")
-                G.add_node(getattr(node.key, self.attr))
-                if parent:
-                    G.add_edge(getattr(parent.key, self.attr), getattr(node.key, self.attr))
-                add_edges(node.left, node)
-                add_edges(node.right, node)
+    #     def add_edges(node, parent=None):
+    #         if node:
+    #             if node == color_node:
+    #                 color_map.append("red")
+    #             else:
+    #                 color_map.append("lightblue")
+    #             G.add_node(getattr(node.key, self.attr))
+    #             if parent:
+    #                 G.add_edge(getattr(parent.key, self.attr), getattr(node.key, self.attr))
+    #             add_edges(node.left, node)
+    #             add_edges(node.right, node)
 
-        add_edges(self.root)
+    #     add_edges(self.root)
 
-        # pos = nx.spring_layout(G)
-        pos = nx.spectral_layout(G)
-        plt.figure(figsize=(8, 6))
-        nx.draw(G, pos, with_labels=True, node_size=1500, node_color=color_map, font_size=12, font_weight="bold",
-                width=2, edge_color="gray")
-        plt.axis("off")
+    #     # pos = nx.spring_layout(G)
+    #     pos = nx.spectral_layout(G)
+    #     plt.figure(figsize=(8, 6))
+    #     nx.draw(G, pos, with_labels=True, node_size=1500, node_color=color_map, font_size=12, font_weight="bold",
+    #             width=2, edge_color="gray")
+    #     plt.axis("off")
+    #     plt.show()
+    def plot_binary_tree(self, root, color_node=None):
+        def plot_node(node, x, y, dx, dy):
+            if node is None:
+                return
+
+            # Plot current node
+            if node != color_node:
+                plt.text(x, y, str(node.key), fontsize=12, ha='center', va='center', 
+                        bbox=dict(facecolor='white', edgecolor='black', boxstyle='circle'))
+            else:
+                plt.text(x, y, str(node.key), fontsize=12, ha='center', va='center', 
+                        bbox=dict(facecolor='red', edgecolor='black', boxstyle='circle'))
+
+            # Plot left child
+            if node.left is not None:
+                x_left = x - dx
+                y_left = y - dy
+                plt.plot([x, x_left], [y, y_left], 'b-', lw=1)
+                plot_node(node.left, x_left, y_left, dx / 2, dy)
+
+            # Plot right child
+            if node.right is not None:
+                x_right = x + dx
+                y_right = y - dy
+                plt.plot([x, x_right], [y, y_right], 'b-', lw=1)
+                plot_node(node.right, x_right, y_right, dx / 2, dy)
+
+        # Set up the figure and axes
+        fig, ax = plt.subplots()
+        ax.set_aspect('equal')
+        ax.axis('off')
+
+        # Recursively plot the tree starting from the root
+        plot_node(root, 0, 0, 1, 1)
+
+        # Adjust plot margins and display the plot
+        plt.margins(0.1)
         plt.show()
 
 
@@ -206,6 +244,7 @@ if __name__ == "__main__":
         temp.append(r)
         print(str(r))
     tree.generate(temp)
+    # tree.plot_binary_tree(tree.root)
     # tree.plot_binary_tree()
 
 
@@ -232,9 +271,9 @@ if __name__ == "__main__":
     # tree.plot_binary_tree()
     # tree.delete(8)
     # tree.plot_binary_tree()
-    print(tree.inorder_traversal())
+    # print(tree.inorder_traversal())
     # print(tree.preorder_traversal())
-    # print(tree.postorder_traversal())
+    print(tree.postorder_traversal())
 
     # tree.generate([5, 3, 7, 2, 4, 8])
     # tree.plot_binary_tree()
