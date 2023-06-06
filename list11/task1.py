@@ -88,26 +88,27 @@ class BinaryTreeOperator:
             if move == "L" and root.left is not None:
                 root = root.left
             elif move == "L" and root.left is None:
-                print("add left child")
+                # print("add left child")
                 root.left = Node(value)
             elif move == "R" and root.right is not None:
                 root = root.right
             elif move == "R" and root.right is None:
-                print("add right child")
+                # print("add right child")
                 root.right = Node(value)
     
     def delete_node(self, instrution: str):
-        root = self.root
-        current_root = root
+        current_root = self.root
         parent_root = None
         direction_flag = instrution[-1]
+        # instrution = instrution[:-1]
+        # print(instrution)
         for move in instrution:
             if move == "L":
                 parent_root = current_root
-                current_root = root.left
+                current_root = current_root.left
             elif move == "R":
                 parent_root = current_root
-                current_root = root.right
+                current_root = current_root.right
         if direction_flag == "L":
             parent_root.left = None
             del current_root
@@ -290,15 +291,18 @@ if __name__ == "__main__":
     tree.add_node("RL", 76)
     tree.add_node("RLL", 76)
     tree.add_node("RLLR", 76)
-    tree.add_node("RLLL", 76)
+    tree.add_node("RLLRR", 76)
+    tree.add_node("RLLRL", 76)
     
     tree.plot_binary_tree(tree.root)
 
-    tree.delete_node("LRL")
+    # tree.delete_node("LRL")
     tree.plot_binary_tree(tree.root)
     tree.delete_node("LRL")
     tree.plot_binary_tree(tree.root)
-    
+
+    # tree.delete_node("R")
+    # tree.plot_binary_tree(tree.root)
 
 
 

@@ -50,7 +50,11 @@ class BST:
     def _delete_helper(self, node, key):
         if node is None:
             return node
-
+        # FIXME
+        print("7777777777777777777")
+        print(type(key))
+        print(type(getattr(node.key, self.attr)))
+        print("7777777777777777777")
         if key < getattr(node.key, self.attr):
             node.left = self._delete_helper(node.left, key)
         elif key > getattr(node.key, self.attr):
@@ -65,7 +69,9 @@ class BST:
             # Find the minimum value in the right subtree
             min_node = self._find_min(node.right)
             node.key = min_node.key
-            node.right = self._delete_helper(node.right, min_node.key)
+            # node = min_node
+            node.right = self._delete_helper(node.right, getattr(min_node.key, self.attr))
+            # node.right = self._delete_helper(node.right, min_node.key)
 
         return node
 
@@ -119,7 +125,6 @@ class BST:
     def _rotate_right_helper(self, node, key):
         if node is None:
             return node
-
         if key < getattr(node.key, self.attr):
             node.left = self._rotate_right_helper(node.left, key)
         elif key > getattr(node.key, self.attr):
@@ -245,10 +250,32 @@ if __name__ == "__main__":
         temp.append(r)
         print(str(r))
     tree.generate(temp)
-    # print("^^^^^")
-    # print(tree.search(2).key)
+
     tree.plot_binary_tree(tree.root)
-    # tree.plot_binary_tree()
+
+    # tree.plot_binary_tree(tree.root)
+    # tree.rotate_left(10)
+    # tree.plot_binary_tree(tree.root)
+
+    # tree.plot_binary_tree(tree.root)
+    # tree.rotate_right(10)
+    # tree.plot_binary_tree(tree.root)
+
+
+    # tree.plot_binary_tree(tree.root)
+    # tree.rotate_right(34)
+    # tree.plot_binary_tree(tree.root)
+
+    tree.plot_binary_tree(tree.root)
+    tree.delete(10)
+    tree.plot_binary_tree(tree.root)
+
+
+
+    
+
+
+
 
 
     # tree.generate([8, 3, 10, 1, 6, 14, 13, 4, 7])
